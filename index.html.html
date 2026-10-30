@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>موزه‌ی جهان‌های ناتمام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9a227;--gold-soft:#e8cf8a;--ivory:#f3e9d6;--paper:#efe3c9;--burgundy:#5a1e2b;--deep:#0a0806;--stone:#171310;--wood:#2a1d14;--ink:#20180f;--px:0px;--py:0px;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;min-height:100%;}
+body{font-family:'Vazirmatn',Tahoma,'Segoe UI',sans-serif;background:var(--deep);color:#e6dbc5;direction:rtl;overflow-x:hidden;line-height:1.95;font-weight:300;font-size:16px;}
+h1,h2,h3,h4{margin:0;font-weight:500;line-height:1.6;}
+p{margin:0 0 .85em;}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;border-radius:6px;}
+::selection{background:rgba(201,162,39,.35);color:#fff;}
+#ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse 80% 55% at 50% -10%, rgba(201,162,39,.16), transparent 60%),radial-gradient(ellipse 60% 45% at 15% 100%, rgba(90,30,43,.28), transparent 65%),radial-gradient(ellipse 60% 45% at 85% 100%, rgba(40,30,20,.5), transparent 65%),linear-gradient(180deg,#0b0907 0%, #0d0a08 45%, #060504 100%);}
+#ambient .layer{position:absolute;inset:-6%;transition:transform .9s cubic-bezier(.2,.7,.3,1);will-change:transform;}
+#ambient .l1{transform:translate3d(calc(var(--px)*10px), calc(var(--py)*10px),0);background:radial-gradient(ellipse 30% 70% at 20% 60%, rgba(201,162,39,.06), transparent 70%),radial-gradient(ellipse 30% 70% at 80% 60%, rgba(201,162,39,.06), transparent 70%);}
+#ambient .l2{transform:translate3d(calc(var(--px)*22px), calc(var(--py)*22px),0);background:radial-gradient(circle at 50% 8%, rgba(232,207,138,.10), transparent 32%),linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.65) 100%);}
+.arch-silhouette{position:absolute;bottom:0;width:16vw;height:46vh;border-radius:50% 50% 0 0 / 32% 32% 0 0;background:linear-gradient(180deg, rgba(20,15,11,.0), rgba(16,12,9,.92));border-top:1px solid rgba(201,162,39,.10);border-left:1px solid rgba(201,162,39,.05);border-right:1px solid rgba(201,162,39,.05);}
+.dust{position:absolute;border-radius:50%;background:rgba(232,207,138,.55);filter:blur(.4px);animation:float linear infinite;opacity:0;}
+@keyframes float{0%{transform:translateY(0) translateX(0);opacity:0;}10%{opacity:.7;}90%{opacity:.5;}100%{transform:translateY(-110vh) translateX(30px);opacity:0;}}
+.screen{position:fixed;inset:0;z-index:3;overflow-y:auto;overflow-x:hidden;opacity:0;pointer-events:none;transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1);transform:scale(1.02);padding-bottom:60px;-webkit-overflow-scrolling:touch;}
+.screen.active{opacity:1;pointer-events:auto;transform:scale(1);}
+.screen-inner{max-width:1080px;margin:0 auto;padding:clamp(16px,4vw,42px);}
+#login-screen{display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,162,39,.10), transparent 60%),linear-gradient(180deg,#080705 0%, #0b0806 50%, #050403 100%);}
+#login-screen.active{display:flex;}
+#login-screen::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg, rgba(255,255,255,.012) 0 1px, transparent 1px 90px);}
+.door-arch{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(1);width:min(460px,86vw);height:min(660px,82vh);border-radius:230px 230px 0 0;background:linear-gradient(180deg, rgba(201,162,39,.10) 0%, rgba(10,7,5,.9) 55%, rgba(4,3,2,.98) 100%);border:2px solid rgba(201,162,39,.30);box-shadow:0 0 90px rgba(201,162,39,.16), inset 0 0 140px rgba(0,0,0,.9);transition:transform 1.5s cubic-bezier(.6,0,.25,1), opacity 1.5s ease, filter 1.5s ease;pointer-events:none;}
+.door-arch::after{content:"";position:absolute;inset:16px;border-radius:214px 214px 0 0;border:1px solid rgba(201,162,39,.16);}
+@keyframes archPulse{0%,100%{box-shadow:0 0 70px rgba(201,162,39,.13), inset 0 0 140px rgba(0,0,0,.9);}50%{box-shadow:0 0 120px rgba(201,162,39,.28), inset 0 0 140px rgba(0,0,0,.9);}}
+#login-screen .door-arch{animation:archPulse 6s ease-in-out infinite;}
+#login-screen.opening .door-arch{transform:translate(-50%,-50%) scale(1.9);opacity:0;filter:blur(8px);animation:none;}
+.login-panel{position:relative;z-index:2;width:min(440px,92vw);padding:clamp(22px,4vw,38px);border-radius:20px;background:linear-gradient(180deg, rgba(28,22,17,.94), rgba(12,9,7,.97));border:1px solid rgba(201,162,39,.28);box-shadow:0 30px 90px rgba(0,0,0,.8), inset 0 1px 0 rgba(232,207,138,.10);backdrop-filter:blur(6px);transition:opacity .8s ease, transform .8s ease;}
+#login-screen.opening .login-panel{opacity:0;transform:translateY(-18px) scale(.97);}
+.login-panel h1{font-size:clamp(1.35rem,4.4vw,1.9rem);color:var(--gold-soft);text-align:center;letter-spacing:.5px;text-shadow:0 0 30px rgba(201,162,39,.35);}
+.login-panel .sub{text-align:center;color:#b7a888;font-size:.92rem;margin:10px 0 26px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:.86rem;color:#c3b394;margin-bottom:7px;}
+.field input{width:100%;padding:13px 15px;background:rgba(0,0,0,.45);border:1px solid rgba(201,162,39,.22);border-radius:11px;color:var(--ivory);font-family:inherit;font-size:1rem;transition:border-color .3s, box-shadow .3s, background .3s;}
+.field input::placeholder{color:#6f6355;}
+.field input:focus{outline:none;border-color:rgba(201,162,39,.7);box-shadow:0 0 0 3px rgba(201,162,39,.12);background:rgba(0,0,0,.6);}
+.pw-wrap{position:relative;}
+.pw-wrap input{padding-left:78px;}
+#toggle-pw{position:absolute;left:6px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#b09a72;font-size:.8rem;padding:8px 10px;border-radius:8px;}
+#toggle-pw:hover{color:var(--gold-soft);background:rgba(201,162,39,.08);}
+#login-error{min-height:24px;color:#e88b8b;font-size:.86rem;margin:6px 2px 10px;}
+#login-submit{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(201,162,39,.55);background:linear-gradient(180deg, rgba(201,162,39,.28), rgba(201,162,39,.10));color:#f6e9c9;font-weight:500;font-size:1rem;letter-spacing:.4px;transition:all .3s;}
+#login-submit:hover:not(:disabled){background:linear-gradient(180deg, rgba(201,162,39,.42), rgba(201,162,39,.18));box-shadow:0 0 32px rgba(201,162,39,.28);}
+#login-submit:disabled{opacity:.55;cursor:default;}
+#login-hint{text-align:center;font-size:.82rem;color:#8a7c66;margin:18px 0 0;}
+#topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:none;align-items:center;gap:10px;padding:10px clamp(12px,3vw,26px);background:linear-gradient(180deg, rgba(8,6,5,.96), rgba(8,6,5,.72) 70%, transparent);backdrop-filter:blur(8px);}
+#topbar.visible{display:flex;}
+#topbar .spacer{flex:1;}
+.tb-btn{background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.26);color:#d9c9a6;padding:8px 14px;border-radius:10px;font-size:.84rem;transition:all .25s;white-space:nowrap;}
+.tb-btn:hover{background:rgba(201,162,39,.18);color:var(--gold-soft);border-color:rgba(201,162,39,.5);}
+#progress-pill{font-size:.8rem;color:#a89878;padding:8px 12px;border-radius:10px;border:1px solid rgba(201,162,39,.14);background:rgba(0,0,0,.3);white-space:nowrap;}
+#topbar .tb-title{font-size:.9rem;color:var(--gold-soft);opacity:.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:34vw;}
+#entrance-screen{display:flex;align-items:center;justify-content:center;padding:clamp(20px,5vw,60px) 18px;}
+.entrance-wrap{max-width:760px;width:100%;text-align:center;position:relative;z-index:2;padding:clamp(24px,5vw,50px) clamp(18px,4vw,44px);border-radius:26px;background:linear-gradient(180deg, rgba(20,16,12,.72), rgba(8,6,5,.86));border:1px solid rgba(201,162,39,.16);box-shadow:0 40px 120px rgba(0,0,0,.75);}
+.entrance-wrap h1{font-size:clamp(1.6rem,5.4vw,2.7rem);color:var(--gold-soft);letter-spacing:1px;text-shadow:0 0 46px rgba(201,162,39,.35);}
+.entrance-wrap .subtitle{margin:16px 0 30px;color:#bda983;font-size:clamp(.86rem,2.6vw,1rem);}
+.passage{color:#d8cbb3;font-size:clamp(.9rem,2.5vw,1rem);}
+.passage p{margin:0 0 1em;}
+.opening-text{text-align:right;margin:0 auto 34px;max-width:620px;padding:22px 24px;border-right:2px solid rgba(201,162,39,.35);background:linear-gradient(90deg, rgba(201,162,39,.05), transparent);border-radius:0 14px 14px 0;color:#d8cbb3;}
+.btn{display:inline-block;border:none;border-radius:12px;padding:13px 30px;font-size:.95rem;font-family:inherit;transition:all .3s;margin:6px;}
+.btn-primary{background:linear-gradient(180deg, rgba(201,162,39,.32), rgba(201,162,39,.12));border:1px solid rgba(201,162,39,.6);color:#fbf0d4;font-weight:500;}
+.btn-primary:hover{background:linear-gradient(180deg, rgba(201,162,39,.5), rgba(201,162,39,.2));box-shadow:0 0 34px rgba(201,162,39,.3);}
+.btn-ghost{background:rgba(255,255,255,.02);border:1px solid rgba(201,162,39,.22);color:#c6b795;}
+.btn-ghost:hover{border-color:rgba(201,162,39,.5);color:var(--gold-soft);background:rgba(201,162,39,.08);}
+.shard{display:flex;align-items:center;gap:12px;justify-content:center;margin:26px auto 0;padding:14px 20px;max-width:460px;border-radius:14px;border:1px dashed rgba(201,162,39,.45);background:radial-gradient(ellipse at center, rgba(201,162,39,.16), rgba(0,0,0,.2));color:var(--gold-soft);font-size:.9rem;animation:shardGlow 3s ease-in-out infinite;cursor:pointer;width:100%;}
+@keyframes shardGlow{0%,100%{box-shadow:0 0 18px rgba(201,162,39,.14);}50%{box-shadow:0 0 40px rgba(201,162,39,.4);}}
+#map-screen .screen-inner{padding-top:80px;}
+.map-head{text-align:center;margin-bottom:38px;}
+.map-head h2{font-size:clamp(1.3rem,4.2vw,1.9rem);color:var(--gold-soft);text-shadow:0 0 30px rgba(201,162,39,.25);}
+.map-head p{color:#a99a7e;font-size:.9rem;margin-top:10px;}
+.wing{margin-bottom:44px;}
+.wing-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.wing-head h3{font-size:1rem;color:#d3c3a0;letter-spacing:.5px;white-space:nowrap;}
+.wing-line{flex:1;height:1px;background:linear-gradient(90deg, rgba(201,162,39,.4), transparent);}
+.wing-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));}
+.world-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;min-height:186px;padding:22px 14px 20px;border-radius:100px 100px 14px 14px;border:1px solid rgba(201,162,39,.18);background:linear-gradient(180deg, rgba(34,26,19,.55) 0%, rgba(12,9,7,.95) 70%);color:#cfc0a0;text-align:center;transition:transform .45s cubic-bezier(.2,.7,.3,1), box-shadow .45s, border-color .45s, background .45s;overflow:hidden;}
+.world-card::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(201,162,39,.16), transparent 62%);opacity:.25;transition:opacity .45s;}
+.world-card:hover,.world-card:focus-visible{transform:translateY(-6px);border-color:rgba(201,162,39,.6);box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 42px rgba(201,162,39,.18);}
+.world-card:hover::before{opacity:.75;}
+.card-glyph{font-size:1.9rem;line-height:1;color:rgba(201,162,39,.75);transition:color .4s, text-shadow .4s;}
+.world-card:hover .card-glyph{color:var(--gold-soft);text-shadow:0 0 24px rgba(201,162,39,.6);}
+.card-title{font-size:.9rem;line-height:1.5;color:#d6c7a6;}
+.card-mark{position:absolute;top:14px;left:14px;font-size:.85rem;color:#6d6151;}
+.card-shard{position:absolute;top:14px;right:14px;font-size:.8rem;color:var(--gold);opacity:.9;text-shadow:0 0 14px rgba(201,162,39,.9);}
+.world-card.state-visited{border-color:rgba(201,162,39,.38);}
+.world-card.state-visited .card-mark{color:#b09a68;}
+.world-card.state-visited::before{opacity:.5;}
+.world-card.state-complete{border-color:rgba(201,162,39,.75);background:linear-gradient(180deg, rgba(58,44,26,.7) 0%, rgba(16,12,8,.96) 72%);box-shadow:0 0 34px rgba(201,162,39,.14) inset;}
+.world-card.state-complete .card-mark{color:var(--gold-soft);text-shadow:0 0 16px rgba(201,162,39,.8);}
+.world-card.state-complete .card-glyph{color:var(--gold-soft);}
+.secret-card{border-color:rgba(232,207,138,.8);background:linear-gradient(180deg, rgba(80,60,30,.6), rgba(14,10,7,.97));animation:secretPulse 4s ease-in-out infinite;}
+@keyframes secretPulse{0%,100%{box-shadow:0 0 30px rgba(201,162,39,.16);}50%{box-shadow:0 0 64px rgba(201,162,39,.42);}}
+.map-actions{text-align:center;margin-top:26px;}
+.final-wing .wing-grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}
+.final-door-card{position:relative;min-height:224px;border-radius:130px 130px 16px 16px;border:1px solid rgba(201,162,39,.2);background:radial-gradient(ellipse at 50% 0%, rgba(201,162,39,.10), transparent 62%),linear-gradient(180deg, rgba(30,22,15,.72), rgba(10,7,5,.97));display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;padding:26px 18px 22px;text-align:center;font-size:.85rem;color:#8d8069;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.3,1), box-shadow .5s, border-color .5s, color .5s;}
+.final-door-card::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(201,162,39,.16), transparent 62%);opacity:.3;transition:opacity .5s;}
+.final-door-card .door-glyph{font-size:2rem;line-height:1;color:rgba(201,162,39,.55);transition:color .5s, text-shadow .5s;}
+.final-door-card .card-title{font-size:.95rem;color:#c9b995;}
+.final-door-card .door-note{font-size:.78rem;color:#8d8069;line-height:1.85;}
+.final-door-card.locked{cursor:default;}
+.final-door-card.locked:hover{transform:none;box-shadow:none;border-color:rgba(201,162,39,.2);}
+.final-door-card.locked:hover::before{opacity:.3;}
+.final-door-card.locked:hover .door-glyph{color:rgba(201,162,39,.55);text-shadow:none;}
+.final-door-card.unlocked{cursor:pointer;border-color:rgba(232,207,138,.8);color:var(--gold-soft);animation:finalDoorPulse 4.5s ease-in-out infinite;}
+.final-door-card.unlocked .door-glyph{color:var(--gold-soft);text-shadow:0 0 26px rgba(201,162,39,.8);}
+.final-door-card.unlocked .door-note{color:#d9c69a;}
+.final-door-card.unlocked:hover{transform:translateY(-6px);}
+@keyframes finalDoorPulse{0%,100%{box-shadow:0 0 28px rgba(201,162,39,.14), inset 0 0 30px rgba(201,162,39,.06);}50%{box-shadow:0 0 70px rgba(201,162,39,.38), inset 0 0 46px rgba(201,162,39,.12);}}
+#world-screen .screen-inner{padding-top:82px;}
+.world-head{text-align:center;margin-bottom:26px;}
+.world-title{font-size:clamp(1.35rem,4.6vw,2.05rem);color:var(--gold-soft);text-shadow:0 0 36px rgba(201,162,39,.3);}
+.world-meta{margin-top:8px;font-size:.8rem;color:#95866c;letter-spacing:.6px;}
+.world-entrance{max-width:720px;margin:0 auto 34px;padding:22px 24px;border-radius:16px;background:linear-gradient(180deg, rgba(28,22,16,.6), rgba(10,8,6,.8));border:1px solid rgba(201,162,39,.14);color:#d5c8ae;text-align:right;}
+.exhibit-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));margin-bottom:22px;}
+.exhibit-card{padding:22px;border-radius:16px;background:linear-gradient(180deg, rgba(26,20,15,.8), rgba(9,7,5,.92));border:1px solid rgba(201,162,39,.16);box-shadow:0 18px 44px rgba(0,0,0,.45);transition:border-color .4s, box-shadow .4s;}
+.exhibit-card.done{border-color:rgba(201,162,39,.5);box-shadow:0 0 34px rgba(201,162,39,.10);}
+.exhibit-title{font-size:1.02rem;color:var(--gold-soft);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(201,162,39,.14);}
+.exhibit-text{font-size:.9rem;color:#c9bda5;}
+.prompt{font-size:.88rem;color:#e0d2ae;margin:14px 0 12px;padding-right:12px;border-right:2px solid rgba(201,162,39,.5);}
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{display:block;width:100%;text-align:right;padding:12px 15px;border-radius:11px;background:rgba(201,162,39,.05);border:1px solid rgba(201,162,39,.18);color:#d5c8ae;font-size:.87rem;font-weight:300;transition:all .3s;line-height:1.7;}
+.opt:hover{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.45);color:#f2e6cb;}
+.opt.selected{background:linear-gradient(180deg, rgba(201,162,39,.24), rgba(201,162,39,.08));border-color:rgba(201,162,39,.7);color:#fbf0d4;}
+.opt.used{opacity:.55;}
+.opt.active{background:rgba(201,162,39,.18);border-color:rgba(201,162,39,.6);}
+.result{margin-top:12px;}
+.reflection{padding:14px 16px;border-radius:12px;background:rgba(201,162,39,.055);border-right:2px solid rgba(201,162,39,.4);color:#d9cdb4;font-size:.88rem;animation:fadeUp .55s ease;}
+.reflection p{margin:0 0 .7em;}
+.reflection p:last-child{margin-bottom:0;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.feedback-ok{color:#b8d8a8;font-size:.88rem;padding:12px 14px;border-radius:11px;background:rgba(120,180,110,.08);border-right:2px solid rgba(140,190,120,.5);}
+.feedback-no{color:#e3a6a6;font-size:.88rem;padding:12px 14px;border-radius:11px;background:rgba(200,90,90,.07);border-right:2px solid rgba(200,90,90,.4);}
+.fragment-slot{margin:22px 0;padding:18px;border-radius:14px;text-align:center;border:1px dashed rgba(201,162,39,.22);color:#8c7f69;font-size:.85rem;background:rgba(0,0,0,.22);}
+.fragment-slot.found{border-color:rgba(201,162,39,.65);color:var(--gold-soft);background:radial-gradient(ellipse at center, rgba(201,162,39,.14), rgba(0,0,0,.25));box-shadow:0 0 32px rgba(201,162,39,.16);}
+.fragment-slot .shard-glyph{font-size:1.3rem;display:block;margin-bottom:6px;color:var(--gold);}
+.puzzle-card{padding:24px;border-radius:16px;margin-bottom:22px;background:linear-gradient(180deg, rgba(42,29,20,.72), rgba(10,7,5,.94));border:1px solid rgba(201,162,39,.3);box-shadow:0 0 46px rgba(201,162,39,.07) inset;}
+.completion-card{padding:22px;border-radius:16px;margin:18px 0;text-align:center;background:radial-gradient(ellipse at top, rgba(201,162,39,.16), rgba(10,7,5,.9));border:1px solid rgba(201,162,39,.55);animation:fadeUp .7s ease;}
+.completion-card .rw{display:inline-block;margin-top:12px;padding:9px 22px;border-radius:999px;background:rgba(201,162,39,.18);border:1px solid rgba(201,162,39,.6);color:var(--gold-soft);font-size:.9rem;}
+.world-back{display:block;margin:26px auto 10px;}
+#secret-screen .screen-inner{padding-top:82px;max-width:820px;}
+.secret-room{border-radius:22px;padding:clamp(20px,4vw,44px);background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,162,39,.14), transparent 62%),linear-gradient(180deg, rgba(34,24,16,.92), rgba(10,7,5,.97));border:1px solid rgba(201,162,39,.3);box-shadow:0 40px 120px rgba(0,0,0,.8);}
+.desk{display:flex;flex-direction:column;align-items:center;gap:22px;padding:30px 10px 10px;}
+.envelope{position:relative;width:min(340px,88%);aspect-ratio:1.55/1;border-radius:10px;cursor:pointer;border:none;background:linear-gradient(160deg,#e8dcc0,#cdbd98);box-shadow:0 24px 50px rgba(0,0,0,.65), inset 0 0 0 1px rgba(120,95,50,.35);transition:transform .5s cubic-bezier(.2,.7,.3,1), box-shadow .5s;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.envelope:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 34px 70px rgba(0,0,0,.75), 0 0 46px rgba(201,162,39,.28);}
+.envelope::before{content:"";position:absolute;inset:0;background:linear-gradient(200deg, transparent 48%, rgba(120,95,50,.18) 50%, transparent 52%);}
+.envelope .env-label{position:relative;z-index:2;color:#3b2a16;font-size:1rem;letter-spacing:1px;font-weight:500;}
+.envelope.opened{opacity:0;transform:scale(.7) rotateX(60deg);pointer-events:none;height:0;margin:0;padding:0;transition:all .8s ease;}
+.letter-paper{width:100%;max-width:720px;padding:clamp(24px,5vw,52px);border-radius:8px;background:repeating-linear-gradient(0deg, rgba(150,120,70,.05) 0 1px, transparent 1px 30px),linear-gradient(160deg,#f3e9d3,#e6d8b8);color:#2a1f12;box-shadow:0 30px 80px rgba(0,0,0,.7), inset 0 0 70px rgba(160,130,80,.14);animation:paperIn 1.1s cubic-bezier(.2,.7,.3,1);line-height:2.25;font-size:clamp(.9rem,2.6vw,1.02rem);}
+@keyframes paperIn{from{opacity:0;transform:translateY(26px) scale(.97);}to{opacity:1;transform:none;}}
+.letter-paper p{margin:0 0 1.15em;color:#2a1f12;}
+.letter-paper .salut{font-size:1.15rem;font-weight:500;margin-bottom:1.2em;}
+.letter-paper .sign{font-style:italic;font-size:1.08rem;color:#4a3418;margin-top:1.4em;letter-spacing:1px;}
+.letter-paper p.strong{font-weight:600;color:#1a1208;}
+.letter-note{text-align:center;color:#a08f72;font-size:.88rem;margin:24px 0 6px;}
+.letter-actions{text-align:center;margin-top:24px;}
+#final-room-screen .screen-inner{padding-top:82px;max-width:900px;}
+.final-room{border-radius:24px;padding:clamp(18px,4vw,40px);background:radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,162,39,.12), transparent 65%),linear-gradient(180deg, rgba(30,22,16,.96), rgba(9,7,5,.99));border:1px solid rgba(201,162,39,.3);box-shadow:0 40px 120px rgba(0,0,0,.85);position:relative;}
+.final-scene{position:relative;height:clamp(270px,44vh,430px);border-radius:18px;background:radial-gradient(ellipse 60% 70% at 26% 30%, rgba(120,140,180,.10), transparent 60%),linear-gradient(180deg, #0c0a08 0%, #15100b 58%, #0a0806 100%);border:1px solid rgba(201,162,39,.14);overflow:hidden;margin-bottom:26px;}
+.night-window{position:absolute;top:8%;left:7%;width:37%;height:62%;border-radius:120px 120px 6px 6px;background:radial-gradient(circle at 30% 22%, rgba(255,246,220,.9) 0 2px, transparent 3px),radial-gradient(circle at 62% 12%, rgba(255,246,220,.7) 0 1.5px, transparent 2.5px),radial-gradient(circle at 82% 34%, rgba(255,246,220,.8) 0 1.5px, transparent 2.5px),radial-gradient(circle at 44% 44%, rgba(255,246,220,.6) 0 1.2px, transparent 2.2px),radial-gradient(circle at 18% 56%, rgba(255,246,220,.5) 0 1.2px, transparent 2.2px),radial-gradient(circle at 88% 62%, rgba(255,246,220,.55) 0 1.5px, transparent 2.5px),radial-gradient(circle at 64% 74%, rgba(255,246,220,.4) 0 1.1px, transparent 2.1px),radial-gradient(circle at 70% 12%, rgba(232,207,138,.35), transparent 42%),linear-gradient(180deg, #0a1226 0%, #101a33 55%, #1a2138 100%);border:2px solid rgba(201,162,39,.28);box-shadow:inset 0 0 40px rgba(0,0,0,.7), 0 0 40px rgba(120,140,200,.08);}
+.night-window::after{content:"";position:absolute;inset:10px;border-radius:110px 110px 4px 4px;border:1px solid rgba(201,162,39,.14);}
+.window-moon{position:absolute;top:15%;left:13%;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 38% 35%, #fff9e6, #f0e2b8 55%, #cdb877 100%);box-shadow:0 0 40px rgba(255,240,200,.55), 0 0 90px rgba(255,230,170,.25);}
+.final-desk{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(180deg, #3a2818 0%, #241708 58%, #150d05 100%);border-top:1px solid rgba(201,162,39,.3);box-shadow:0 -18px 40px rgba(0,0,0,.6);}
+.desk-lamp{position:absolute;right:15%;bottom:29%;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #fff4d0, #e8c86a 45%, #8a6a20 100%);box-shadow:0 0 40px rgba(255,220,140,.55), 0 0 90px rgba(232,200,120,.35);animation:lampGlow 6s ease-in-out infinite;z-index:2;}
+@keyframes lampGlow{0%,100%{box-shadow:0 0 36px rgba(255,220,140,.45), 0 0 80px rgba(232,200,120,.28);}50%{box-shadow:0 0 52px rgba(255,225,150,.6), 0 0 110px rgba(232,200,120,.4);}}
+.desk-lamp::before{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);width:240px;height:190px;background:radial-gradient(ellipse at top, rgba(255,225,150,.22), transparent 70%);pointer-events:none;}
+.room-dust{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.room-dust span{position:absolute;border-radius:50%;background:rgba(255,232,175,.65);filter:blur(.3px);animation:roomFloat linear infinite;opacity:0;}
+@keyframes roomFloat{0%{transform:translateY(0);opacity:0;}15%{opacity:.8;}85%{opacity:.35;}100%{transform:translateY(-140px);opacity:0;}}
+.final-envelope{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);width:min(320px,74%);aspect-ratio:1.55/1;border-radius:10px;border:none;cursor:pointer;background:linear-gradient(160deg,#efe3c6,#d8c8a2);box-shadow:0 22px 44px rgba(0,0,0,.65), 0 0 34px rgba(201,162,39,.16), inset 0 0 0 1px rgba(120,95,50,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:transform .5s cubic-bezier(.2,.7,.3,1), box-shadow .5s, opacity .7s, filter .7s;overflow:visible;z-index:3;}
+.final-envelope::before{content:"";position:absolute;inset:0;border-radius:10px;background:linear-gradient(200deg, transparent 48%, rgba(120,95,50,.16) 50%, transparent 52%);pointer-events:none;}
+.final-envelope:hover{transform:translateX(-50%) translateY(-5px) scale(1.02);box-shadow:0 32px 60px rgba(0,0,0,.75), 0 0 46px rgba(201,162,39,.3);}
+.final-envelope .fenv-label{position:relative;z-index:2;color:#3b2a16;font-size:1.05rem;font-weight:500;letter-spacing:.6px;}
+.final-envelope .fenv-invite{position:relative;z-index:2;color:#6b5732;font-size:.74rem;}
+.final-envelope .wax{position:absolute;top:-15px;right:20px;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #a63a4a, #6a1f2c);box-shadow:0 2px 8px rgba(0,0,0,.4), inset 0 0 6px rgba(255,255,255,.15);}
+.final-envelope.opened{opacity:0;filter:blur(2px);transform:translateX(-50%) scale(.82) rotateX(45deg);pointer-events:none;transition:all .9s ease;}
+#final-letter-area .letter-paper{margin:22px auto 0;}
+.final-letter-title{text-align:center;color:#5a4520;font-size:1.06rem;font-weight:500;margin-bottom:1.1em;padding-bottom:.7em;border-bottom:1px solid rgba(120,95,50,.25);}
+#music-controls{position:fixed;left:14px;bottom:14px;z-index:35;display:none;align-items:center;gap:8px;padding:9px 13px;border-radius:14px;background:linear-gradient(180deg, rgba(26,20,15,.96), rgba(10,7,5,.98));border:1px solid rgba(201,162,39,.4);box-shadow:0 14px 40px rgba(0,0,0,.7), 0 0 26px rgba(201,162,39,.12);color:#d9c9a6;font-size:.76rem;direction:rtl;}
+#music-controls.visible{display:flex;}
+#music-controls button{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);color:#e8d7ad;border-radius:9px;padding:6px 10px;font-size:.76rem;transition:all .25s;}
+#music-controls button:hover{background:rgba(201,162,39,.22);color:var(--gold-soft);}
+#music-controls input[type="range"]{width:74px;accent-color:#c9a227;cursor:pointer;}
+#music-controls .mc-label{color:#a3946f;font-size:.72rem;}
+#final-transition{position:fixed;inset:0;z-index:85;background:radial-gradient(ellipse at center, rgba(28,20,12,.97), #000 72%);opacity:0;pointer-events:none;transition:opacity 1s ease;}
+#final-transition.on{opacity:1;pointer-events:auto;}
+.panel{position:fixed;top:0;bottom:0;z-index:40;width:min(460px,94vw);background:linear-gradient(180deg,#15100b 0%, #0a0705 100%);border-left:1px solid rgba(201,162,39,.28);box-shadow:-30px 0 90px rgba(0,0,0,.8);transform:translateX(-104%);transition:transform .55s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;}
+html[dir="rtl"] .panel{left:0;right:auto;border-left:1px solid rgba(201,162,39,.28);}
+.panel.open{transform:translateX(0);}
+.panel-head{padding:18px 20px;border-bottom:1px solid rgba(201,162,39,.18);display:flex;align-items:center;gap:12px;}
+.panel-head h3{font-size:1rem;color:var(--gold-soft);flex:1;}
+.panel-close{background:transparent;border:1px solid rgba(201,162,39,.25);color:#c4b391;width:32px;height:32px;border-radius:9px;font-size:1rem;line-height:1;}
+.panel-close:hover{background:rgba(201,162,39,.12);color:var(--gold-soft);}
+.panel-body{padding:20px;overflow-y:auto;flex:1;font-size:.88rem;color:#cbbfa7;}
+.panel-body h4{font-size:.9rem;color:#e2d3b0;margin:22px 0 12px;padding-bottom:8px;border-bottom:1px solid rgba(201,162,39,.14);}
+.panel-body h4:first-child{margin-top:0;}
+.j-intro{font-size:.85rem;color:#a99a7e;line-height:1.95;}
+.reward-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;}
+.reward-chip{padding:12px 10px;border-radius:11px;text-align:center;font-size:.76rem;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);color:#5f5749;line-height:1.6;transition:all .4s;}
+.reward-chip .rc-glyph{display:block;font-size:1rem;margin-bottom:5px;opacity:.4;}
+.reward-chip.unlocked{color:#f0e0b8;border-color:rgba(201,162,39,.6);background:radial-gradient(ellipse at top, rgba(201,162,39,.2), rgba(0,0,0,.25));box-shadow:0 0 24px rgba(201,162,39,.18);}
+.reward-chip.unlocked .rc-glyph{opacity:1;color:var(--gold-soft);text-shadow:0 0 14px rgba(201,162,39,.8);}
+.j-list{list-style:none;padding:0;margin:0;}
+.j-list li{padding:9px 12px;border-radius:9px;margin-bottom:7px;background:rgba(201,162,39,.05);border-right:2px solid rgba(201,162,39,.3);font-size:.82rem;color:#cfc2a9;}
+.j-list li .j-sub{display:block;color:#8d8069;font-size:.75rem;margin-top:3px;}
+.fragment-box{padding:16px;border-radius:12px;border:1px dashed rgba(201,162,39,.4);background:rgba(201,162,39,.045);text-align:center;}
+.fragment-box .fcount{color:var(--gold-soft);font-size:.95rem;margin-bottom:8px;}
+.fragment-box .fhint{font-size:.78rem;color:#93856d;}
+.assembled{margin-top:14px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(201,162,39,.12), rgba(0,0,0,.3));border:1px solid rgba(201,162,39,.5);color:#f6e8c6;font-size:.95rem;line-height:2.1;min-height:60px;}
+.caret{display:inline-block;width:2px;height:1em;background:var(--gold-soft);vertical-align:-2px;animation:blink 1s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
+#toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:80;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none;width:min(440px,92vw);}
+.toast{padding:12px 20px;border-radius:12px;background:linear-gradient(180deg, rgba(42,32,20,.97), rgba(14,10,7,.98));border:1px solid rgba(201,162,39,.55);color:#f4e7c6;font-size:.84rem;text-align:center;box-shadow:0 16px 46px rgba(0,0,0,.7), 0 0 34px rgba(201,162,39,.16);animation:toastIn .5s cubic-bezier(.2,.7,.3,1);line-height:1.7;}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.95);}to{opacity:1;transform:none;}}
+.toast.out{animation:toastOut .5s ease forwards;}
+@keyframes toastOut{to{opacity:0;transform:translateY(-10px);}}
+#modal-wrap{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);}
+#modal-wrap.open{display:flex;}
+.modal{width:min(430px,94vw);padding:26px;border-radius:16px;background:linear-gradient(180deg,#1b1410,#0b0806);border:1px solid rgba(201,162,39,.4);box-shadow:0 30px 80px rgba(0,0,0,.85);text-align:center;animation:fadeUp .4s ease;}
+.modal h3{color:var(--gold-soft);font-size:1.05rem;margin-bottom:14px;}
+.modal p{font-size:.88rem;color:#c3b69d;margin-bottom:22px;}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}.dust{display:none;}.room-dust span{display:none;}#ambient .layer{transform:none !important;}}
+@media (max-width:600px){body{font-size:15px;}.wing-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}.world-card{min-height:158px;padding:18px 10px 16px;border-radius:82px 82px 12px 12px;}.card-glyph{font-size:1.55rem;}.card-title{font-size:.8rem;}#topbar .tb-title{display:none;}.tb-btn{padding:7px 11px;font-size:.78rem;}.exhibit-card,.puzzle-card{padding:17px;}.login-panel{padding:22px 18px;}.final-door-card{min-height:200px;}.final-envelope{width:min(280px,80%);}.night-window{width:44%;}#music-controls{padding:8px 10px;gap:6px;font-size:.72rem;}#music-controls input[type="range"]{width:58px;}}
+</style>
+</head>
+<body>
+
+<div id="ambient" aria-hidden="true">
+  <div class="layer l1"></div>
+  <div class="layer l2"></div>
+  <div class="arch-silhouette" style="right:4vw;"></div>
+  <div class="arch-silhouette" style="right:22vw;height:36vh;width:12vw;opacity:.7;"></div>
+  <div class="arch-silhouette" style="left:6vw;height:52vh;width:18vw;opacity:.8;"></div>
+  <div class="arch-silhouette" style="left:27vw;height:32vh;width:11vw;opacity:.5;"></div>
+</div>
+<div id="dust-layer" aria-hidden="true" style="position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;"></div>
+
+<div id="topbar">
+  <button class="tb-btn" id="btn-back" type="button">بازگشت</button>
+  <span class="tb-title" id="tb-title"></span>
+  <span class="spacer"></span>
+  <span id="progress-pill"></span>
+  <button class="tb-btn" id="btn-journal" type="button">دفترچه‌ی کشفیات</button>
+  <button class="tb-btn" id="btn-help" type="button">اگر راهنمایی می‌خوای</button>
+  <button class="tb-btn" id="btn-reset" type="button">شروع دوباره</button>
+</div>
+
+<div id="login-screen" class="screen active">
+  <div class="door-arch" aria-hidden="true"></div>
+  <div class="login-panel">
+    <h1>موزه‌ی جهان‌های ناتمام</h1>
+    <p class="sub">بعضی درها، فقط با کلید درست باز می‌شن.</p>
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="login-user">نام کاربری</label>
+        <input id="login-user" type="text" placeholder="نام کاربری رو وارد کن" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="field">
+        <label for="login-pass">رمز عبور</label>
+        <div class="pw-wrap">
+          <input id="login-pass" type="password" placeholder="رمز ورود رو وارد کن" autocomplete="off">
+          <button type="button" id="toggle-pw" aria-label="نمایش رمز عبور">نمایش</button>
+        </div>
+      </div>
+      <div id="login-error" role="alert" aria-live="polite"></div>
+      <button type="submit" id="login-submit">باز کردن در</button>
+    </form>
+    <p id="login-hint">برای ورود، کلید این موزه رو وارد کن.</p>
+  </div>
+</div>
+
+<div id="entrance-screen" class="screen">
+  <div class="entrance-wrap">
+    <h1>موزه‌ی جهان‌های ناتمام</h1>
+    <p class="subtitle">جایی برای چیزهایی که درون کتاب‌ها تمام شدند ، اما در ذهن آدم‌ها ادامه پیدا کردند.</p>
+    <div class="opening-text passage" id="entrance-passage"></div>
+    <button class="btn btn-primary" id="btn-enter-museum" type="button">ورود به موزه</button>
+    <button class="btn btn-ghost" id="btn-entrance-help" type="button">راهنمای بازدید</button>
+    <div id="entrance-shard-slot"></div>
+  </div>
+</div>
+
+<div id="map-screen" class="screen">
+  <div class="screen-inner">
+    <div class="map-head">
+      <h2>نقشه‌ی موزه</h2>
+      <p>هر دری را که خواستی باز کن. ترتیبی در کار نیست.</p>
+    </div>
+    <div id="map-wings"></div>
+    <div class="map-actions">
+      <button class="btn btn-ghost" id="btn-to-entrance" type="button">بازگشت به ورودی موزه</button>
+    </div>
+  </div>
+</div>
+
+<div id="world-screen" class="screen">
+  <div class="screen-inner" id="world-container"></div>
+</div>
+
+<div id="secret-screen" class="screen">
+  <div class="screen-inner">
+    <div class="secret-room">
+      <h2 class="world-title" style="text-align:center;">بخشی که هنوز نوشته نشده</h2>
+      <div class="world-entrance passage" id="secret-entrance" style="margin-top:22px;"></div>
+      <div class="desk" id="secret-desk"></div>
+      <div id="letter-area"></div>
+    </div>
+  </div>
+</div>
+
+<div id="final-room-screen" class="screen">
+  <div class="screen-inner">
+    <div class="final-room">
+      <h2 class="world-title" style="text-align:center;">آخرین اتاق</h2>
+      <div id="final-room-container"></div>
+    </div>
+  </div>
+</div>
+
+<aside class="panel" id="journal-panel" aria-label="دفترچه‌ی کشفیات">
+  <div class="panel-head">
+    <h3>دفترچه‌ی کشفیات</h3>
+    <button class="panel-close" id="journal-close" type="button" aria-label="بستن دفترچه">×</button>
+  </div>
+  <div class="panel-body" id="journal-body"></div>
+</aside>
+
+<aside class="panel" id="help-panel" aria-label="راهنمایی">
+  <div class="panel-head">
+    <h3>اگر راهنمایی می‌خوای</h3>
+    <button class="panel-close" id="help-close" type="button" aria-label="بستن راهنما">×</button>
+  </div>
+  <div class="panel-body" id="help-body"></div>
+</aside>
+
+<div id="music-controls" aria-label="کنترل موسیقی">
+  <button type="button" id="mc-mute" aria-label="روشن یا خاموش کردن صدا">صدا: روشن</button>
+  <button type="button" id="mc-play" aria-label="توقف یا پخش موسیقی">توقف</button>
+  <span class="mc-label">میزان صدا</span>
+  <input type="range" id="mc-volume" min="0" max="100" value="55" aria-label="میزان صدای موسیقی">
+</div>
+
+<div id="final-transition" aria-hidden="true"></div>
+
+<div id="toast-wrap" aria-live="polite"></div>
+
+<div id="modal-wrap">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3 id="modal-title"></h3>
+    <p id="modal-text"></p>
+    <div id="modal-actions"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+(function(){
+function $(sel, root){ return (root||document).querySelector(sel); }
+function $$(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+function el(tag, cls, text){
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined && text !== null) e.textContent = text;
+  return e;
+}
+function paras(text, cls){
+  var d = el('div', cls || 'passage');
+  String(text).split(/\n\s*\n/).forEach(function(t){
+    var s = t.trim();
+    if (s) d.appendChild(el('p', null, s));
+  });
+  return d;
+}
+var FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+function toFa(n){ return String(n).replace(/\d/g, function(d){ return FA_DIGITS[+d]; }); }
+var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+var WINGS = {A:'بال شرقی — ادبیات فارسی',B:'بال غربی — جهان رمان‌ها',C:'بال شمالی — فلسفه'};
+
+var WORLDS = [
+{id:'poetry',wing:'A',title:'باغ شعر فارسی',glyph:'❦',reward:'نشان چهار نگاه',hint:'این بخش چهار مسیر دارد: حافظ، مولانا، خیام و فردوسی. برای کامل شدن باغ، هر چهار مسیر را باز کن و در هر کدام یک انتخاب انجام بده.',entrance:'به باغی رسیده‌ای که هر گوشه‌اش با یک واژه ساخته شده.\n\nاینجا شعر فقط چیزی برای خواندن نیست؛ راهی برای دیدن دنیاست.\n\nدر این باغ، حافظ از راز و رندی حرف می‌زنه، مولانا از دگرگونی و عشق، خیام از گذر زمان و پرسش‌های بی‌پاسخ، و فردوسی از سرنوشت، خرد و پهلوانی.\n\nچهار مسیر پیش روت قرار داره.\n\nهر کدوم رو انتخاب کنی، باغ شکل تازه‌ای به خودش می‌گیره.',completion:'چهار راه، چهار نگاه.\n\nباغ بهت یادآوری می‌کنه که یک زبان، می‌تونه جهان‌های زیادی در خودش جا بده.',exhibits:[
+{id:'hafez',title:'راه حافظ',kind:'choice',text:'در جهان حافظ، یک واژه می‌تونه چند در داشته باشه.\n\nمی‌شه یک غزل رو عاشقانه خوند، ازش پرسشی اخلاقی بیرون کشید یا به فاصله‌ی میان ظاهر و باطن فکر کرد.\n\nاین شعرها همیشه یک پاسخ ساده تحویل نمی‌دن؛ گاهی خواننده رو وادار می‌کنن دوباره از خودش سؤال بپرسه.',prompt:'در شعر، بیشتر دنبال کشف چه چیزی هستی؟',options:[{label:'معنایی که پشت واژه‌ها پنهان شده',text:'لایه‌های معنا را دوست داری؛ برای همین در خواندن حافظ، هم واژه‌ها را می‌بینی و هم سکوتی که پشت آن‌ها ایستاده است. این نگاه شعر را به گفت‌وگویی چندلایه تبدیل می‌کند؛ به شرطی که معنا را از خود متن بیرون بکشی، نه از حدس‌های بی‌مدرک.'},{label:'احساسی که نمی‌شه دقیق توضیحش داد',text:'بعضی تجربه‌های شعری پیش از آنکه فهمیده شوند، حس می‌شوند. این حس نقطه‌ی شروع خوبی است؛ اما وقتی با دقت در واژه‌ها و لحن همراه شود، از یک حالِ گذرا فراتر می‌رود و به خوانشی دقیق‌تر می‌رسد. حافظ اغلب همین‌جا کار می‌کند: مرز میان احساس و تأمل.'},{label:'نگاهی تازه به زندگی',text:'شعر می‌تواند عادتِ دیدن را بشکند. وقتی از یک غزل چیزی برمی‌داری که پیش‌تر ندیده بودی، متن را به آینه‌ای برای خودت تبدیل کرده‌ای؛ و این آینه هر بار ممکن است چیز تازه‌ای نشان بدهد، چون تو هم همان آدم قبلی نیستی.'}]},
+{id:'rumi',title:'راه مولانا',kind:'choice',text:'در شعر مولانا، انسان موجودی ثابت و تمام‌شده نیست.\n\nاو می‌تونه تغییر کنه، از خودش عبور کنه و با پرسیدن سؤال‌های تازه، جهانش رو دوباره بسازه.\n\nدر این مسیر، مقصد همیشه به اندازه‌ی خودِ رفتن اهمیت نداره.',prompt:'کدام در را باز می‌کنی؟',options:[{label:'تغییر',text:'تغییر در این نگاه با پیدا کردن یک چیز تازه شروع نمی‌شود؛ با پذیرفتن این شروع می‌شود که برداشت قبلی ما کامل نبوده. دری که باز می‌شود به اتاقی تازه نمی‌رسد؛ به همان اتاق می‌رسد، اما با چشمی که دیگر همان چشم نیست.'},{label:'شناخت',text:'شناخت، ساختن یک تصویر ثابت از خود نیست. بیشتر شبیه مسیری است که با تجربه، گفت‌وگو و پرسش‌های تازه مدام بازنگری می‌شود. در این مسیر، یقین کمتر می‌شود و توجه بیشتر.'},{label:'رهایی',text:'رهایی در شعر مولانا بیشتر از جنس رها شدن از عادت‌های فکری است تا فرار از جهان. یعنی چیزی که سال‌ها بدیهی به نظر می‌رسید، دوباره قابلِ پرسیدن شود.'}]},
+{id:'khayyam',title:'راه خیام',kind:'choice',text:'در رباعیات خیام، زمان کوتاهه و یقین همیشه در دسترس نیست.\n\nبه‌جای اینکه همه‌ی رازهای هستی حل بشن، خواننده با محدودیت دانسته‌های خودش روبه‌رو می‌شه.\n\nگاهی پذیرفتن همین محدودیت، شروع یک نگاه صادقانه‌تر به زندگیه.',prompt:'یک شیء نمادین انتخاب کن.',options:[{label:'ساعت شنی',text:'ساعت شنی چیزی را نشان نمی‌دهد جز گذشتن. شاید مهم‌ترین چیزی که از این شیء برمی‌آید این باشد که زمان نه دشمن است و نه دارایی؛ شرایطی است که در آن زندگی می‌کنیم. آگاهی از آن می‌تواند ما را به توجه بیشتر به لحظه‌ای که در اختیار داریم برساند.'},{label:'جام',text:'جام در رباعیات خیام اغلب یادآور لحظه‌ی حاضر است. این نگاه لزوماً دعوت به بی‌توجهی به آینده نیست؛ بیشتر یادآوری این است که زندگی فقط در انتظار رسیدن به آینده نمی‌گذرد.'},{label:'ستاره',text:'ستاره پرسشی است که پاسخش را نمی‌بینیم، اما نورش را می‌بینیم. خیام هم بارها همین کار را می‌کند: به جای بستن پرسش، آن را روشن نگه می‌دارد و انسان را با محدودیت دانستن خودش روبه‌رو می‌کند.'}]},
+{id:'ferdowsi',title:'راه فردوسی',kind:'choice',text:'در شاهنامه، پهلوانی فقط به نیروی بازو خلاصه نمی‌شه.\n\nخرد، انتخاب، مسئولیت و پیامد تصمیم‌ها، بخش مهمی از سرنوشت شخصیت‌ها هستن.\n\nداستان‌های حماسی وقتی ماندگار می‌شن که پشت نبردها، پرسش‌هایی درباره‌ی انسان هم وجود داشته باشه.',prompt:'به نظر تو، قوی‌ترین ویژگی یک پهلوان چیست؟',options:[{label:'خرد',text:'اگر خرد را مهم‌ترین ویژگی بدانی، پهلوان کسی است که پیش از عمل، پیامدها را می‌بیند. در شاهنامه، شکست‌های بزرگ اغلب از تصمیم‌های شتاب‌زده می‌آیند، نه از کمبود نیرو.'},{label:'شجاعت',text:'شجاعت چیزی است که حرکت را ممکن می‌کند. اما شجاعت بدون تشخیصِ درست، می‌تواند به شتاب تبدیل شود. در شاهنامه، شجاعت ارزشمند است، ولی هرگز جای خرد را نمی‌گیرد.'},{label:'وفاداری',text:'وفاداری پیوند میان آدم‌ها را می‌سازد و در بسیاری از داستان‌های شاهنامه، نیروی محرکه‌ی tragedy نیست؛ بلکه چیزی است که به رنج معنا می‌دهد. با این حال، وفاداری هم اگر کورکورانه شود، می‌تواند به خطا بینجامد.'}]}
+],puzzle:null},
+{id:'epic',wing:'A',title:'تالار حماسه',glyph:'⚔',reward:'نشان خرد',hint:'سه بخش این تالار را ببین: رستم و سهراب، سیاوش، و آینه‌ی خرد. در پایان، پازل آینه را حل کن.',entrance:'در این تالار، نام پهلوان‌ها روی دیوارهای سنگی حک شده.\n\nاما پشت هر نام، فقط داستان یک نبرد نیست؛ انتخابی هست که می‌تونه زندگی یک نفر یا سرنوشت یک سرزمین رو تغییر بده.\n\nاینجا قدرت مهمه، اما خرد تعیین می‌کنه قدرت چطور به کار بره.',completion:'آینه روشن می‌شه.\n\nدر این تالار، قدرت بدون خرد هنوز راه خودش رو پیدا نکرده.',exhibits:[
+{id:'sohrab',title:'رستم و سهراب',kind:'choice',text:'داستان رستم و سهراب فقط یک تراژدی درباره‌ی رویارویی پدر و پسر نیست.\n\nاین داستان درباره‌ی شناختی هم هست که دیر اتفاق می‌افته؛ درباره‌ی نشانه‌هایی که دیده نمی‌شن و حقیقتی که وقتی آشکار می‌شه، دیگه نمی‌تونه گذشته رو تغییر بده.\n\nپرسش دشوار اینه: اگر حقیقت دیر شناخته بشه، آیا دانستن اون می‌تونه چیزی رو جبران کنه؟',prompt:'کدام پاسخ به تو نزدیک‌تر است؟',options:[{label:'دانستن حقیقت، حتی دیرهنگام، هنوز ارزش داره.',text:'این نگاه حقیقت را به خودی خود ارزشمند می‌بیند. حتی اگر جبران گذشته ممکن نباشد، دانستن می‌تواند رابطه‌ی انسان با گذشته‌اش را تغییر دهد؛ دیگر بر پایه‌ی یک تصور غلط زندگی نمی‌کنیم. این انتخاب، امیدوارانه است، اما هزینه‌ی دیر فهمیدن را انکار نمی‌کند.'},{label:'بعضی حقیقت‌ها وقتی دیر می‌رسن، فرصت جبران رو از بین می‌برن.',text:'این نگاه تلخ‌تر اما صادقانه است: آگاهی بدون زمان کافی، گاهی فقط رنج می‌آورد. داستان رستم و سهراب همین نقطه را فشار می‌دهد؛ جایی که دانستن، دیگر نمی‌تواند کاری را که گذشته تغییر بدهد. هیچ‌کدام از این دو پاسخ کامل نیست، و شاید همین، بخشی از سنگینی این داستان باشد.'}]},
+{id:'siavash',title:'سیاوش و آزمون آتش',kind:'reveal',text:'سیاوش در روایت شاهنامه با آزمونی روبه‌رو می‌شه که قرار است پاکی و بی‌گناهی او را آشکار کند.\n\nاین صحنه را می‌توان درباره‌ی شجاعت خواند؛ اما همچنین درباره‌ی جامعه‌ای که برای باور کردن یک انسان، از او می‌خواهد رنجی را تحمل کند.',prompt:'سه شیء را بررسی کن.',items:[{label:'شعله',text:'شعله در این روایت فقط وسیله‌ی آزمون نیست؛ تصویری از انتظاری است که جامعه از فرد می‌کشد. شجاعت سیاوش در عبور از آتش، شجاعت تحمل یک اتهام نارواست، نه اثبات چیزی که خودش می‌داند.'},{label:'سپر',text:'سپر یادآور این است که انسان‌ها برای محافظت از خود چیزی برمی‌دارند. اما در داستان سیاوش، مسئله محافظت جسم نیست؛ محافظت از نام و حقیقتی است که به‌تنهایی قابل اثبات نیست.'},{label:'شهادت‌نامه‌ی مهروموم',text:'سندی که مهر خورده، نشانه‌ی تلاش برای قطعی کردن یک داوری است. اما داستان سیاوش نشان می‌دهد که سند و آزمون، همیشه جای گفت‌وگوی صادقانه را نمی‌گیرند.'}]}
+],puzzle:{title:'آینه‌ی خرد',text:'پهلوانی که تنها به قدرت خودش اعتماد می‌کنه، ممکنه خطر رو دیرتر از بقیه ببینه.\n\nخرد یعنی قبل از عمل، پیامدها رو هم در نظر بگیریم.',question:'کدام ویژگی، مستقیماً نماینده‌ی داوری سنجیده است؟',options:['خشم','خرد','شتاب'],correct:1,wrong:'این انتخاب، آینه را روشن نمی‌کند. آینه دنبال چیزی است که پیش از عمل، به پیامدها فکر کند. دوباره امتحان کن.',ok:'آینه روشن می‌شه.\n\nدر این تالار، قدرت بدون خرد هنوز راه خودش رو پیدا نکرده.'}},
+{id:'hafez',wing:'A',title:'تالار حافظ',glyph:'✿',reward:'نشان خوانش',hint:'سه شیء این تالار را ببین: پرده‌ی ظاهر، نسخه‌ی گشوده و بیتی که ادامه‌اش با توست. این بخش پازل ندارد؛ کامل شدنش به باز کردن هر سه شیء است.',entrance:'در این تالار، شعرها مثل آینه‌هایی چندلایه روی دیوار قرار گرفتن.\n\nیک خواننده ممکنه در یک بیت، عشق رو ببینه؛ دیگری رندی، آزادی، تردید یا نقد ظاهرگرایی رو پیدا کنه.\n\nبرای نزدیک شدن به شعر، لازم نیست همه‌ی برداشت‌ها یکی باشن؛ اما هر برداشت باید با خود متن گفت‌وگو کنه.',completion:'این بخش از موزه رو کشف کردی.\n\nمی‌تونی به راهت ادامه بدی یا هر وقت خواستی برگردی و دوباره بهش سر بزنی.',exhibits:[
+{id:'veil',title:'پرده‌ی ظاهر',kind:'reveal',text:'در بسیاری از خوانش‌های حافظ، فاصله‌ی میان ظاهر و باطن اهمیت داره.\n\nشخصیت رند می‌تونه در برابر ادعای دانایی یا پاکیِ بی‌نقص، پرسش ایجاد کنه.\n\nاما برای فهم یک غزل، باید به واژه‌ها، بافت و لحن هم توجه کرد؛ نه اینکه هر معنایی رو بدون دلیل به شعر نسبت بدیم.',prompt:'پرده را کنار بزن؛ سه لایه پشت آن است.',items:[{label:'واژه‌ها',text:'هر خوانش از یک واژه شروع می‌شود. پیش از هر تفسیری، باید دید شاعر چه کلمه‌ای را انتخاب کرده و چه کلمه‌ای را کنار گذاشته است. انتخاب واژه، خودش یک معناست.'},{label:'بافت شعر',text:'یک بیت در دل یک غزل معنا پیدا می‌کند، نه به‌تنهایی. لحن، جایگاه بیت در غزل و فضای کلی شعر، مرزهای تفسیر را مشخص می‌کنند.'},{label:'برداشت خواننده',text:'خواننده هم بخشی از فرایند خواندن است. تجربه‌ی او، پرسش‌هایش و آنچه در زندگی دیده، در فهم شعر نقش دارد. اما این برداشت باید با متن گفت‌وگو کند، نه اینکه جای متن بنشیند.'}]},
+{id:'manuscript',title:'نسخه‌ی گشوده',kind:'choice',text:'یک غزل ممکنه با هر بار خواندن، پرسش تازه‌ای ایجاد کنه.\n\nمعنای شعر فقط در اولین برداشت خلاصه نمی‌شه؛ گاهی چیزی که بعد از چند بار خواندن دیده می‌شه، در نگاه اول پنهان مونده بود.',prompt:'با کدام لنز به نسخه نگاه می‌کنی؟',options:[{label:'عاشقانه',text:'لنز عاشقانه، شعر را در فضای رابطه‌ی میان دو انسان می‌بیند: امید، فاصله، انتظار و ناگفته‌ها. این خوانش معتبر است، اما اگر تنها لنز باشد، ممکن است بخشی از طنز و نقد اجتماعی متن را از دست بدهد.'},{label:'اخلاقی',text:'لنز اخلاقی، شعر را درباره‌ی صداقت، ریاکاری و مسئولیت می‌خواند. در این نگاه، رند نه یک الگوی رفتاری، بلکه پرسشی درباره‌ی ادعاهای اخلاقی ماست. با این حال، این خوانش هم نباید به شعار تبدیل شود.'},{label:'اجتماعی',text:'لنز اجتماعی، شعر را در بافت زمانه‌ی خودش می‌بیند: نقد ظاهرگرایی، قدرت و ریاکاری. این نگاه می‌تواند روشنگر باشد، به شرطی که از حدس‌های بی‌مدرک درباره‌ی نیّت شاعر فراتر نرود.'}]},
+{id:'unanswered',title:'بیتی که ادامه‌اش با توست',kind:'choice',text:'بعضی شعرها در ذهن خواننده ادامه پیدا می‌کنن.\n\nنه با اضافه کردن واژه به شعر اصلی، بلکه با پرسشی که بعد از خواندنش باقی می‌مونه.',prompt:'بعد از خواندن یک شعر خوب، کدوم اتفاق برات مهم‌تره؟',options:[{label:'اینکه معنای تازه‌ای پیدا کنم',text:'معنای تازه، پاداش خواندن دقیق است. اما معنای تازه با معنای دلبخواهی فرق دارد؛ اولی از دل متن بیرون می‌آید و دومی از دل خواسته‌ی ما. تمایز این دو، خودش بخشی از مهارت خواندن است.'},{label:'اینکه احساسم تغییر کنه',text:'تغییر احساس، نشانه‌ی این است که شعر به جایی رسیده که استدلال به‌تنهایی نمی‌رسد. این تجربه ارزشمند است؛ و وقتی با تأمل همراه شود، ماندگارتر می‌شود.'},{label:'اینکه درباره‌اش بیشتر فکر کنم',text:'پرسشی که بعد از شعر باقی می‌ماند، شاید مهم‌ترین چیزی باشد که یک متن می‌تواند به ما بدهد. این پرسش، خواندن را از یک اتفاق به یک привыغیر تبدیل می‌کند.'}]}
+],puzzle:null},
+{id:'rumi',wing:'A',title:'اتاق دگرگونی',glyph:'✧',reward:'نشان دگرگونی',hint:'سه ایستگاه این اتاق را ببین: درِ تغییر، آینه‌ی شناخت و دری که دستگیره ندارد. در پایان، پازل درِ بی‌دستگیره را حل کن.',entrance:'این اتاق دیوارهای ثابتی نداره.\n\nنقش‌ها و سایه‌ها آرام حرکت می‌کنن؛ انگار خود فضا هم هنوز در حال تغییر کردنه.\n\nدر اینجا، اندیشه‌ی مرکزی شعر مولانا، دگرگونی و عبور از شناخت محدود خوده.\n\nقرار نیست یک جواب نهایی پیدا کنی. قرار است مسیرهای مختلف رو ببینی.',completion:'در آرام باز می‌شه.\n\nتغییر، وقتی ارزشمندتره که از دیدن و فهمیدن شروع بشه.',exhibits:[
+{id:'turning-door',title:'درِ تغییر',kind:'multi',text:'تغییر همیشه با پیدا کردن یک چیز تازه شروع نمی‌شه.\n\nگاهی با پذیرفتن این شروع می‌شه که برداشت قبلی ما کامل نبوده.',prompt:'چرخ را بچرخان و هر سه بخش را ببین.',items:[{label:'آنچه می‌دانم',text:''},{label:'آنچه نمی‌دانم',text:''},{label:'آنچه می‌توانم دوباره بررسی کنم',text:''}],success:'شناخت، وقتی زنده می‌مونه که امکان بازنگری در خودش رو حفظ کنه.'},
+{id:'mirror',title:'آینه‌ی شناخت',kind:'choice',text:'آدم‌ها همیشه خودشون رو از بیرون نمی‌بینن.\n\nگاهی برای شناختن خودمون، به گفت‌وگو، تجربه و فاصله گرفتن از عادت‌های فکری نیاز داریم.',prompt:'یکی از سه مسیر را انتخاب کن.',options:[{label:'تجربه',text:'تجربه، شناخت را از حالت انتزاعی بیرون می‌آورد. اما تجربه به‌تنهایی هم کافی نیست؛ اگر درباره‌اش فکر نکنیم، ممکن است همان الگوهای قبلی را تکرار کند. تجربه وقتی ثمربخش است که با تأمل همراه شود.'},{label:'گفت‌وگو',text:'گفت‌وگو با دیگری، چیزی را نشان می‌دهد که از درون دیده نمی‌شود. نه به این معنا که دیگری درباره‌ی ما حقیقت نهایی را می‌داند، بلکه به این معنا که پرسش‌های او می‌تواند چیزی را در ما بیدار کند.'},{label:'تنهایی و تأمل',text:'تنهایی، فضایی برای شنیدن صدای خود است؛ به شرطی که به انزوا تبدیل نشود. تأمل بدون مواجهه با جهان، می‌تواند به تکرار همان تصورات قبلی برسد. ترکیب تأمل و تجربه است که شناخت را زنده نگه می‌دارد.'}]}
+],puzzle:{title:'دری که دستگیره ندارد',text:'بعضی درها با فشار بیشتر باز نمی‌شن.\n\nشاید قبل از عبور، لازم باشه بفهمیم چرا اصلاً پشت اون در ایستادیم.',question:'وقتی یک باور آشنا به چالش کشیده می‌شود، مفیدترین قدم اول چیست؟',options:['رد کردن فوری','بررسی دلیل‌ها','تغییر نظر بدون فکر'],correct:1,wrong:'در باز نمی‌شود. این پاسخ یا از سر رد کردن است یا از سر شتاب؛ هیچ‌کدام به فهم نزدیک‌تر نمی‌شوند. دوباره فکر کن.',ok:'در آرام باز می‌شه.\n\nتغییر، وقتی ارزشمندتره که از دیدن و فهمیدن شروع بشه.'}},
+{id:'khayyam',wing:'A',title:'رصدخانه‌ی خیام',glyph:'☾',reward:'نشان زمان',hint:'سه شیء این رصدخانه را ببین: ساعت شنی، نقشه‌ی نادانسته‌ها و جام اکنون. انتخاب‌هایت در دفترچه ذخیره می‌شوند.',entrance:'سقف این رصدخانه، آسمونی پر از ستاره‌ست.\n\nدر مرکز اتاق، یک ساعت شنی و چند نسخه‌ی خطی قرار دارن.\n\nخیام در رباعیاتش بارها به کوتاهی عمر، گذر زمان و محدودیت دانسته‌های انسان پرداخته.\n\nدر این اتاق، به‌جای جست‌وجوی پاسخ قطعی برای همه‌چیز، با چند پرسش روبه‌رو می‌شی.',completion:'این بخش از موزه رو کشف کردی.\n\nمی‌تونی به راهت ادامه بدی یا هر وقت خواستی برگردی و دوباره بهش سر بزنی.',exhibits:[
+{id:'hourglass',title:'ساعت شنی',kind:'choice',text:'زمان، حتی وقتی بهش فکر نمی‌کنیم، از مسیر خودش عبور می‌کنه.\n\nآگاهی از گذر زمان می‌تونه ما رو به ترس برسونه یا به توجه بیشتر نسبت به لحظه‌ای که در اختیار داریم.',prompt:'ساعت شنی را برگردان. کدام زمان را انتخاب می‌کنی؟',options:[{label:'زمانی که گذشته',text:'گذشته چیزی است که می‌تواند درس بدهد یا سنگین شود. تأمل در آن زمانی مفید است که به فهم منجر شود، نه به تکرار بی‌پایان افسوس. گذشته تغییر نمی‌کند، اما رابطه‌ی ما با آن می‌تواند تغییر کند.'},{label:'لحظه‌ی اکنون',text:'اکنون تنها زمانی است که در آن می‌توان کاری کرد. توجه به لحظه به معنای انکار آینده نیست؛ به این معناست که زندگی فقط در انتظار آینده نمی‌گذرد.'},{label:'زمانی که هنوز نیامده',text:'آینده هم امکان است و هم منبع نگرانی. فکر کردن به آن لازم است، اما زندگی در آینده می‌تواند لحظه‌ی حاضر را از ما بگیرد. شاید هنر، نگه داشتن تعادل میان برنامه‌ریزی و حضور باشد.'}]},
+{id:'map',title:'نقشه‌ی نادانسته‌ها',kind:'reveal',text:'هرچه بیشتر یاد می‌گیریم، ممکنه بهتر متوجه بشیم چه چیزهایی رو هنوز نمی‌دونیم.\n\nندانستن همیشه شکست نیست؛ گاهی مرز میان دانسته‌ها و پرسش‌های تازه رو مشخص می‌کنه.',prompt:'سه صورت فلکی را با وصل کردن ستاره‌ها آشکار کن.',items:[{label:'از کجا می‌دانم؟',text:'این پرسش درباره‌ی منبع باورهای ماست. بخشی از دانسته‌های ما از تجربه می‌آید، بخشی از آموزش و بخشی از عادت. تشخیص این منابع، اولین قدم برای سنجش اعتبار آن‌هاست.'},{label:'چه چیزی در اختیار من است؟',text:'این پرسش، مرز میان آنچه می‌توانیم تغییر دهیم و آنچه نمی‌توانیم را روشن می‌کند. تمرکز بر آنچه در اختیار ما نیست، اغلب به اضطراب می‌رسد؛ تمرکز بر آنچه در اختیار ماست، به عمل.'},{label:'با نادانسته‌هایم چه می‌کنم؟',text:'همه‌ی ما با نادانسته‌هایی زندگی می‌کنیم. پرسش مهم این نیست که چگونه آن‌ها را حذف کنیم، بلکه این است که چگونه با آن‌ها صادقانه و بدون فلج شدن کنار بیاییم.'}]},
+{id:'cup',title:'جام اکنون',kind:'picker',text:'در خوانش بسیاری از رباعیات خیام، لذت لحظه‌ی حاضر در کنار آگاهی از ناپایداری زندگی قرار می‌گیره.\n\nاین اندیشه لزوماً به معنای بی‌اهمیت بودن آینده نیست؛ می‌تونه یادآوری کنه که زندگی فقط در انتظار رسیدن به آینده نمی‌گذره.',prompt:'یک واژه روی جام حک کن. این انتخاب در دفترچه‌ات ذخیره می‌شود.',options:[{label:'حضور',text:'واژه‌ی «حضور» روی جام حک شد. حضوری که در دفترچه‌ات ثبت شد، یادآور این است که زندگی در لحظه‌ای رخ می‌دهد که در آن هستیم.'},{label:'پرسش',text:'واژه‌ی «پرسش» روی جام حک شد. پرسشی که ثبت کردی، یادآور این است که پرسیدن، خودش شکلی از زنده بودن است.'},{label:'آگاهی',text:'واژه‌ی «آگاهی» روی جام حک شد. آگاهی‌ای که انتخاب کردی، یادآور این است که دانستنِ ناپایداری زندگی، می‌تواند به توجه بیشتر بینجامد، نه به بی‌تفاوتی.'}]}
+],puzzle:null},
+{id:'white',wing:'B',title:'شب‌های روشن',glyph:'☾',reward:'نشان شب',hint:'سه بخش این جهان را ببین: نیمکت کنار کانال، چهار شب، و نامه‌ای در انتظار پاسخ. در پایان، پازل نامه را حل کن.',entrance:'شب آرامه و شهر زیر نور چراغ‌ها قرار گرفته.\n\nخیابان‌ها خلوتن و صدای قدم‌ها از دور می‌آد.\n\nدر جهان شب‌های روشن، راویِ تنها با زنی به نام ناستنکا آشنا می‌شه. چند شب گفت‌وگو، امید، خیال و انتظار، رابطه‌ای کوتاه اما عمیق می‌سازن.\n\nاین داستان درباره‌ی تنهایی و رؤیاپردازیه؛ و همچنین درباره‌ی تفاوت میان کسی که در ذهنمون ساخته‌ایم و انسانی که واقعاً روبه‌روی ما ایستاده.',completion:'چراغ پنجره روشن می‌شه.\n\nدر این داستان، رؤیا و واقعیت همیشه در یک مسیر حرکت نمی‌کنن؛ و همین فاصله، بخشی از تأثیر داستانه.',exhibits:[
+{id:'bench',title:'نیمکت کنار کانال',kind:'reveal',text:'گاهی گفت‌وگو با یک غریبه، فضای ذهنی ما رو تغییر می‌ده.\n\nاما صمیمیت یک لحظه با شناخت کامل یک انسان فرق داره.\n\nآشنایی، فرصتی برای دیدن دیگریه؛ نه مدرکی برای اینکه تمام دنیای او رو فهمیده‌ایم.',prompt:'روی نیمکت کلیک کن.',items:[{label:'یادداشت دست‌نویس روی نیمکت',text:'گاهی یک گفت‌وگوی کوتاه، از ساعت‌ها فکر کردن به خودمون چیزهای بیشتری آشکار می‌کنه.'}]},
+{id:'four-nights',title:'چهار شب',kind:'reveal',text:'در روایت داستایفسکی، دیدارهای پیاپی به تدریج امید و وابستگی ایجاد می‌کنن.\n\nهر دیدار، هم یک اتفاق واقعیه و هم بخشی از دنیای درونی راوی رو آشکار می‌کنه.',prompt:'چهار پنجره را روشن کن.',items:[{label:'آشنایی',text:'آشنایی، شروع چیزی است که هنوز شکل نگرفته. در این مرحله، بیشتر از آنکه دیگری را بشناسیم، تصورات خودمان را درباره‌ی او می‌سازیم.'},{label:'اعتماد',text:'اعتماد به تدریج ساخته می‌شود و به تکرارِ حضور وابسته است. اما اعتماد در یک رابطه‌ی کوتاه، شکننده‌تر از آن است که به‌تنهایی بتواند آینده را تضمین کند.'},{label:'امید',text:'امید نیروی حرکت است؛ اما وقتی بر تصویری خیالی از آینده بنا شود، می‌تواند به انتظاری تبدیل شود که واقعیت توان برآورده کردنش را ندارد.'},{label:'انتظار',text:'انتظار، گاهی بیشتر از خود اتفاق، ذهن انسان را درگیر می‌کند. در داستان، انتظار هم‌زمان منبع امید و منبع رنج است.'}]}
+],puzzle:{title:'نامه‌ای در انتظار پاسخ',text:'انتظار، گاهی بیشتر از خود اتفاق، ذهن انسان رو درگیر می‌کنه.\n\nدر داستان، امید می‌تونه نیروی حرکت باشه؛ اما همیشه تضمین نمی‌کنه که واقعیت مطابق انتظار پیش بره.',question:'این داستان بیشتر دعوتت می‌کند به فکر کردن درباره‌ی چه چیزی؟',options:['تفاوت رؤیا و واقعیت','بی‌اهمیت بودن احساسات','اینکه تنهایی همیشه انتخاب آگاهانه است'],correct:0,wrong:'این پاسخ، چراغ را روشن نمی‌کند. دوباره به رابطه‌ی میان آنچه راوی در ذهنش می‌سازد و آنچه در واقعیت رخ می‌دهد فکر کن.',ok:'چراغ پنجره روشن می‌شه.\n\nدر این داستان، رؤیا و واقعیت همیشه در یک مسیر حرکت نمی‌کنن؛ و همین فاصله، بخشی از تأثیر داستانه.'}},
+{id:'crime',wing:'B',title:'اتاق وجدان',glyph:'✝',reward:'نشان وجدان',hint:'سه بخش این اتاق را ببین: دفتر توجیه‌ها، آینه‌ی وجدان و ترازوی عدالت. در دفتر، سه جمله را به ترتیب درست بچین.',entrance:'این اتاق تاریک‌تر از بقیه‌ست.\n\nدر مرکز آن، میز ساده‌ای قرار داره و روی میز، سه شیء دیده می‌شه: یک دفتر، یک چراغ خاموش و یک آینه.\n\nجنایت و مکافات فقط درباره‌ی یک جنایت نیست؛ درباره‌ی ذهنی هم هست که تلاش می‌کنه عمل خودش رو توجیه کنه و بعد با پیامدهای آن روبه‌رو می‌شه.\n\nاین جهان، پرسشی دشوار مطرح می‌کنه: آیا یک نظریه می‌تونه انسان رو از مسئولیت عملش جدا کنه؟',completion:'ترازوی سنگی متعادل می‌شه.\n\nاین به معنای ساده بودن همه‌ی داوری‌های اخلاقی نیست؛ یعنی برای قضاوت باید بیش از یک بُعد رو دید.',exhibits:[
+{id:'notebook',title:'دفتر توجیه‌ها',kind:'sequence',text:'راسکولنیکف تلاش می‌کنه با یک نظریه درباره‌ی انسان‌های استثنایی، عمل خودش رو توجیه کنه.\n\nاما اندیشه، وقتی بهانه‌ای برای نادیده گرفتن رنج دیگران بشه، از آزمون اخلاقی دشواری عبور می‌کنه.',prompt:'سه جمله را به ترتیب یک زنجیره‌ی استدلال بچین.',items:['من برای عملم دلیل داشتم.','دلیل داشتن، به‌تنهایی عمل را درست نمی‌کند.','پیامدهای عمل، بخشی از مسئولیت آن هستند.'],success:'زنجیره درست شد. دفتر بسته می‌شود، اما پرسشش باقی می‌ماند.'},
+{id:'mirror-conscience',title:'آینه‌ی وجدان',kind:'reveal',text:'احساس گناه، مسئولیت اخلاقی و ترس از مجازات یک چیز نیستن.\n\nرمان نشون می‌ده که ذهن انسان می‌تونه بین توجیه‌های منطقی و تجربه‌ی درونی خودش گرفتار بشه.',prompt:'روی آینه کلیک کن.',items:[{label:'تصویر در آینه',text:'گاهی سخت‌ترین بخش روبه‌رو شدن با یک عمل، شنیدن قضاوت دیگران نیست؛ کنار گذاشتن توجیه‌هایی است که برای خودمان ساخته‌ایم.'}]}
+],puzzle:{title:'ترازوی عدالت',text:'عدالت، نیت، پیامد و مسئولیت ممکنه در یک تصمیم با هم تعارض پیدا کنن.\n\nقضاوت دقیق نیازمند دیدن تمام این ابعاد است، نه فقط انتخاب یک دلیل که با خواسته‌ی ما سازگار باشد.',question:'کدام مجموعه، کامل‌ترین مبنای داوری اخلاقی را می‌دهد؟',options:['فقط نیت','فقط پیامد','نیت، پیامد و مسئولیت'],correct:2,wrong:'ترازو متعادل نمی‌شود. تکیه بر یک بُعد تنها، بخشی از تصویر را پنهان می‌کند. دوباره امتحان کن.',ok:'ترازوی سنگی متعادل می‌شه.\n\nاین به معنای ساده بودن همه‌ی داوری‌های اخلاقی نیست؛ یعنی برای قضاوت باید بیش از یک بُعد رو دید.'}},
+{id:'meta',wing:'B',title:'اتاق دگرگونی کافکا',glyph:'⌬',reward:'نشان هویت',hint:'سه بخش این اتاق را ببین: درِ بسته، ساعت کار و نامی که باقی می‌ماند. در پایان، پازل پلاک را حل کن.',entrance:'درِ اتاق که باز می‌شه، با فضایی روبه‌رو می‌شی که اندازه‌هاش کمی نامعقول به نظر می‌رسن.\n\nمیز بیش از حد بلنده. ساعت روی دیوار حرکت نمی‌کنه. پشت پنجره، شهری عادی دیده می‌شه؛ اما داخل اتاق، همه‌چیز ناآشناست.\n\nدر مسخ، گرگور سامسا یک روز در وضعیتی غیرقابل‌تصور از خواب بیدار می‌شه و دیگر نمی‌تونه به زندگی سابقش برگرده.\n\nداستان، پرسش‌هایی درباره‌ی هویت، کار، خانواده و ارزش انسان مطرح می‌کنه.',completion:'نام روی پلاک دوباره خوانا می‌شه.\n\nاین اتاق بهت یادآوری می‌کنه که ارزش انسان رو نمی‌شه به کارکرد یا سودمندی او تقلیل داد.',exhibits:[
+{id:'door',title:'درِ بسته',kind:'reveal',text:'وقتی گرگور تغییر می‌کنه، درهای خانه به مرز میان دنیای او و دیگران تبدیل می‌شن.\n\nدرِ بسته فقط مانع فیزیکی نیست؛ نشانه‌ی فاصله‌ایه که کم‌کم میان او و خانواده‌اش شکل می‌گیره.',prompt:'سه لایه‌ی در را کنار بزن.',items:[{label:'ترس',text:'ترس در این داستان دوطرفه است: خانواده از چیزی که گرگور شده می‌ترسد و گرگور از این می‌ترسد که دیگر جایی در دنیای قبلی نداشته باشد.'},{label:'سوءتفاهم',text:'وقتی زبان مشترک از بین می‌رود، هر صدا می‌تواند تهدید به نظر برسد. بخشی از رنج گرگور از همین ناتوانی در فهمیده شدن می‌آید.'},{label:'فاصله',text:'فاصله‌ای که در داستان شکل می‌گیرد، فقط فیزیکی نیست. کم‌کم مرز میان «ما» و «او» چنان پررنگ می‌شود که انسانیت مشترک پشت آن گم می‌شود.'}]},
+{id:'clock',title:'ساعت کار',kind:'multi',text:'حتی در شرایطی غیرقابل‌تصور، یکی از اولین نگرانی‌های گرگور، کار و مسئولیت‌های روزمره‌ست.\n\nاین جزئیات می‌تونه توجه ما رو به دنیایی جلب کنه که در اون، وظیفه گاهی حتی پیش از فهمیدن وضعیت خود انسان قرار می‌گیره.',prompt:'عقربه‌های ساعت را در سه موقعیت ببین.',items:[{label:'وظیفه',text:''},{label:'هویت',text:''},{label:'فرسودگی',text:''}],success:'ساعت از حرکت می‌ایستد. سه کلمه روی صفحه‌اش باقی می‌مانند: وظیفه، هویت، فرسودگی.'}
+],puzzle:{title:'نامی که باقی می‌ماند',text:'اگر ظاهر، توانایی یا جایگاه اجتماعی کسی تغییر کنه، چه چیزی باعث می‌شه هنوز او را همان انسان بدانیم؟\n\nداستان کافکا پاسخ ساده‌ای نمی‌ده؛ اما ما رو وادار می‌کنه درباره‌ی رابطه‌ی میان هویت و نگاه دیگران فکر کنیم.',question:'کدام پرسش، متفکرانه‌ترین پرسشی است که این داستان مطرح می‌کند؟',options:['آیا ارزش انسان فقط به کارایی او وابسته است؟','آیا ظاهر همیشه حقیقت را نشان می‌دهد؟','آیا هیچ تغییری در زندگی ممکن نیست؟'],correct:0,wrong:'پلاک خوانا نمی‌شود. این پاسخ، پرسش اصلی داستان را از دست می‌دهد. دوباره فکر کن.',ok:'نام روی پلاک دوباره خوانا می‌شه.\n\nاین اتاق بهت یادآوری می‌کنه که ارزش انسان رو نمی‌شه به کارکرد یا سودمندی او تقلیل داد.'}},
+{id:'stranger',wing:'B',title:'خورشید بیگانه',glyph:'☀',reward:'نشان آگاهی',hint:'سه بخش این جهان را ببین: نور بی‌امان، دادگاه نگاه‌ها و افق بی‌پاسخ. در پایان، پازل افق را حل کن.',entrance:'نور خورشید بیش از حد شدیده.\n\nسایه‌ها کوتاهن و همه‌چیز در فضایی خشک و روشن دیده می‌شه.\n\nدر رمان بیگانه، مورسو با جامعه‌ای روبه‌رو می‌شه که از او انتظار داره احساساتش رو مطابق الگوهای پذیرفته‌شده نشان بده.\n\nاین داستان پرسش‌هایی درباره‌ی صداقت، هنجارهای اجتماعی، داوری و معنای زندگی مطرح می‌کنه.',completion:'افق بازتر می‌شه.\n\nپرسش از معنا، لزوماً پایان حرکت نیست؛ می‌تونه بخشی از آگاهی ما نسبت به زندگی باشه.',exhibits:[
+{id:'sun',title:'نور بی‌امان',kind:'reveal',text:'در بیگانه، فضای فیزیکی و گرمای شدید در تجربه‌ی مورسو نقش مهمی دارن.\n\nاما نباید همه‌ی تصمیم‌های او رو فقط به شرایط جسمی تقلیل داد؛ روایت، رابطه‌ی پیچیده‌تری میان تجربه‌ی حسی، انتخاب و مسئولیت ایجاد می‌کنه.',prompt:'پرتو نور را در اتاق حرکت بده.',items:[{label:'تجربه‌ی حسی',text:'گرما، نور و صدا در این رمان فقط توصیف نیستند؛ آن‌ها تجربه‌ی زیستن در جهان را می‌سازند. اما تجربه‌ی حسی، به‌تنهایی توضیح کاملی برای انتخاب‌ها نیست.'},{label:'فشار موقعیت',text:'موقعیت، دامنه‌ی انتخاب را محدود می‌کند، اما آن را حذف نمی‌کند. تشخیص این تفاوت، بخشی از دقت خواندن این رمان است.'},{label:'مسئولیت انتخاب',text:'کامو مسئولیت را نادیده نمی‌گیرد. حتی در جهانی که پاسخ نهایی تضمین نشده، انسان همچنان با پیامدهای انتخاب‌هایش روبه‌روست.'}]},
+{id:'courtroom',title:'دادگاه نگاه‌ها',kind:'reveal',text:'در جریان محاکمه‌ی مورسو، نگاه جامعه به شخصیت و واکنش‌های او به بخش مهمی از داوری تبدیل می‌شه.\n\nرمان ما رو با این پرسش روبه‌رو می‌کنه که جامعه چگونه درباره‌ی انسان‌ها قضاوت می‌کنه و آیا این قضاوت همیشه مستقیماً به عمل مورد بررسی مربوطه.',prompt:'سه کارت شواهد را بررسی کن.',items:[{label:'عمل',text:'عمل، نقطه‌ی شروع داوری حقوقی است. اما در روایت رمان، توجه به‌سرعت از خودِ عمل به شخصیت متهم منتقل می‌شود.'},{label:'رفتار اجتماعی',text:'جامعه انتظار دارد انسان در موقعیت‌های خاص، احساسات خاصی نشان دهد. ناتوانی در اجرای این انتظارها، می‌تواند به مدرکی علیه فرد تبدیل شود؛ حتی اگر به عمل مورد بررسی مربوط نباشد.'},{label:'برداشت دیگران',text:'برداشت دیگران همیشه درباره‌ی ما نیست؛ گاهی درباره‌ی انتظارات خودشان از ماست. رمان این فاصله را به یکی از محورهای اصلی خودش تبدیل می‌کند.'}]}
+],puzzle:{title:'افق بی‌پاسخ',text:'اندیشه‌ی کامو درباره‌ی پوچی از برخورد میل انسان به معنا با سکوت جهان آغاز می‌شه.\n\nاین اندیشه لزوماً دعوت به تسلیم نیست. کامو درباره‌ی زیستن، آگاهی و ادامه دادن در جهانی بدون تضمین‌های نهایی فکر می‌کنه.',question:'کدام جمله با این برداشت سازگارتر است؟',options:['چون پاسخ قطعی نداریم، هیچ انتخابی اهمیت ندارد.','می‌توان بدون تضمین پاسخ نهایی، آگاهانه زندگی کرد.','معنای زندگی همیشه از بیرون به ما داده می‌شود.'],correct:1,wrong:'افق باز نمی‌شود. این پاسخ یا به بی‌تفاوتی می‌رسد یا به تسلیم؛ هر دو از روح این اندیشه دورند. دوباره امتحان کن.',ok:'افق بازتر می‌شه.\n\nپرسش از معنا، لزوماً پایان حرکت نیست؛ می‌تونه بخشی از آگاهی ما نسبت به زندگی باشه.'}},
+{id:'nietzsche',wing:'C',title:'کارگاه آفرینش خویشتن',glyph:'⚒',reward:'نشان بازنگری',hint:'سه بخش این کارگاه را ببین: مجسمه‌ی نیمه‌تمام، نقاب و آفرینش خویشتن. در پایان، پازل را حل کن.',entrance:'این کارگاه پر از آینه، ابزار، یادداشت و مجسمه‌های نیمه‌تمامه.\n\nروی دیوار نوشته شده:\n\n«آیا ارزش‌هایی که با آن‌ها زندگی می‌کنی، واقعاً بررسی شده‌اند؟»\n\nنیچه درباره‌ی ارزش‌ها، اخلاق، رنج، آفرینش و امکان دگرگون کردن خویشتن پرسش‌های دشواری مطرح می‌کنه.\n\nبرای فهم او، نباید همه‌ی اندیشه‌هاش رو به یک شعار درباره‌ی قدرت یا برتری تقلیل داد.',completion:'مجسمه به پایان نمی‌رسه؛ اما شکلش روشن‌تر می‌شه.\n\nخویشتن، در این اتاق، یک پروژه‌ی تمام‌شده نیست.',exhibits:[
+{id:'statue',title:'مجسمه‌ی نیمه‌تمام',kind:'multi',text:'گاهی انسان ارزش‌هایی رو به ارث می‌بره که هرگز خودش انتخاب نکرده.\n\nبررسی اون ارزش‌ها لزوماً به معنای رد کردن همه‌چیز نیست؛ یعنی تلاش کنیم بفهمیم چرا به چیزی باور داریم.',prompt:'هر سه ابزار را روی مجسمه امتحان کن.',items:[{label:'پرسش',text:''},{label:'بازنگری',text:''},{label:'آفرینش',text:''}],success:'مجسمه تغییر می‌کند، اما کامل نمی‌شود. شاید همین، معنای کارگاه باشد.'},
+{id:'mask',title:'نقاب',kind:'reveal',text:'آدم ممکنه برای پذیرفته شدن، نقش‌هایی رو ادامه بده که با شناخت واقعی خودش سازگار نیستن.\n\nاما شناخت خویشتن هم کار ساده‌ای نیست؛ چون انسان فقط یک ویژگی ثابت یا یک پاسخ آماده نیست.',prompt:'سه لایه‌ی نقاب را بردار.',items:[{label:'چه چیزی را باور دارم؟',text:'پیش از پاسخ دادن، شاید بهتر باشد فهرست کوتاهی از باورهای اصلی‌ات بنویسی. بسیاری از آن‌ها ممکن است هرگز به‌صورت آگاهانه انتخاب نشده باشند.'},{label:'چرا آن را باور دارم؟',text:'منبع باور مهم است: تجربه، خانواده، آموزش، یا عادت. تشخیص منبع، باور را باطل نمی‌کند؛ فقط آن را قابل بررسی می‌کند.'},{label:'آیا حاضر به بازنگری هستم؟',text:'این پرسش، سخت‌ترین بخش است. بازنگری به معنای انکار گذشته نیست؛ به معنای پذیرفتن این است که ممکن است چیزی را ناقص فهمیده باشیم.'}]}
+],puzzle:{title:'آفرینش خویشتن',text:'آفرینش خویشتن یعنی انسان در شکل دادن به زندگی‌اش نقش فعال داشته باشه؛ نه اینکه همه‌ی محدودیت‌ها رو انکار کنه یا تصور کنه هر چیزی صرفاً با اراده ممکن می‌شه.',question:'کدام تفسیر، سنجیده‌تر است؟',options:['انسان باید هرگز نظرش را تغییر ندهد.','انسان می‌تواند ارزش‌هایش را بررسی کند و مسئولانه بازنگری کند.','قدرت، همه‌ی معیارهای اخلاقی را بی‌اهمیت می‌کند.'],correct:1,wrong:'مجسمه شکل روشنی نمی‌گیرد. این پاسخ یا به جمود می‌رسد یا به انکار اخلاق. دوباره امتحان کن.',ok:'مجسمه به پایان نمی‌رسه؛ اما شکلش روشن‌تر می‌شه.\n\nخویشتن، در این اتاق، یک پروژه‌ی تمام‌شده نیست.'}},
+{id:'plato',wing:'C',title:'غار سایه‌ها',glyph:'◐',reward:'نشان شناخت',hint:'سه بخش غار را ببین: سایه‌ها، زنجیرهای عادت و راه خروج. برای باز شدن راه خروج، هر سه زنجیر را باید آزاد کنی.',entrance:'دیوارهای غار با سایه‌ها پوشیده شدن.\n\nدر انتهای راهرو، نور باریکی دیده می‌شه.\n\nدر تمثیل غار افلاطون، گروهی از انسان‌ها فقط سایه‌هایی رو می‌بینن که مقابل چشمشان قرار گرفته و آن‌ها را با واقعیت اشتباه می‌گیرند.\n\nداستان، پرسشی درباره‌ی شناخت، عادت و دشواری روبه‌رو شدن با چیزی فراتر از تجربه‌ی آشنا مطرح می‌کنه.',completion:'نور روی دیوار گسترده می‌شه.\n\nشناخت با پذیرش امکان خطا آغاز می‌شه، نه با ادعای دانستن همه‌چیز.',exhibits:[
+{id:'shadows',title:'سایه‌ها',kind:'reveal',text:'اگر تمام تجربه‌ی ما از جهان محدود به یک زاویه باشه، ممکنه همان بخش محدود رو تمام واقعیت تصور کنیم.\n\nاین تمثیل درباره‌ی رابطه‌ی میان ادراک و شناخت پرسش ایجاد می‌کنه.',prompt:'منبع نور را جابه‌جا کن.',items:[{label:'جابه‌جا کردن منبع نور',text:'آنچه می‌بینی، واقعی است؛ اما شاید تمام واقعیت نباشد.'}]},
+{id:'chains',title:'زنجیرهای عادت',kind:'multi',text:'عادت می‌تونه به ما احساس اطمینان بده؛ حتی وقتی اطلاعات ما ناقصه.\n\nآزاد شدن از یک باور آشنا همیشه ساده نیست، چون گاهی لازم می‌شه چیزهایی رو دوباره بررسی کنیم که سال‌ها بدیهی به نظر رسیده‌اند.',prompt:'هر سه زنجیر را آزاد کن.',items:[{label:'تردید',text:''},{label:'بررسی',text:''},{label:'گفت‌وگو',text:''}],success:'هر سه زنجیر باز شد. راه خروج روشن‌تر است.'}
+],puzzle:{title:'راه خروج',text:'خروج از غار فقط رسیدن به نور نیست.\n\nتمثیل افلاطون درباره‌ی تغییر وضعیت شناخت و دشواری دیدن جهانیه که با تصور قبلی ما سازگار نیست.',question:'کدام کار، احتمال فهم بهتر را بیشتر می‌کند؟',options:['تکرار یک باور بدون بررسی','بررسی شواهد و امکان خطا','رد کردن هر دیدگاه متفاوت'],correct:1,wrong:'نور روی دیوار نمی‌افتد. این پاسخ راه را می‌بندد، نه باز. دوباره امتحان کن.',ok:'نور روی دیوار گسترده می‌شه.\n\nشناخت با پذیرش امکان خطا آغاز می‌شه، نه با ادعای دانستن همه‌چیز.'}},
+{id:'camus',wing:'C',title:'اتاق آخرین پرسش',glyph:'✷',reward:'نشان پرسش',hint:'سه بخش این اتاق را ببین: سؤال بی‌پایان، راه ادامه دادن و درِ بی‌پاسخ. در پایان، یک پرسش را با خودت ببر.',entrance:'در این اتاق، یک میز ساده، یک پنجره و یک چراغ روشن وجود داره.\n\nهیچ مجسمه‌ای در مرکز اتاق نیست.\n\nفقط یک جمله روی دیوار نوشته شده:\n\n«اگر پاسخ نهایی تضمین نشده باشد، چگونه باید زندگی کرد؟»\n\nاندیشه‌ی پوچی در فلسفه‌ی کامو از برخورد میان میل انسان به یافتن معنا و سکوت جهان شکل می‌گیره.\n\nاما این پرسش می‌تونه به تأمل درباره‌ی آزادی، مسئولیت و ادامه دادن منجر بشه.',completion:'پرسشت ثبت شد.\n\nقرار نیست اینجا جوابی از پیش آماده بهت داده بشه.\n\nبعضی پرسش‌ها ارزششون به اینه که در طول زندگی، دوباره به سراغشون برگردیم.',exhibits:[
+{id:'question',title:'سؤال بی‌پایان',kind:'choice',text:'انسان دوست داره بدونه چرا اینجاست و زندگی‌اش چه معنایی داره.\n\nاما جهان همیشه پاسخی روشن و قطعی ارائه نمی‌کنه.\n\nکامو این تنش رو نادیده نمی‌گیره؛ آن را نقطه‌ی شروع اندیشه قرار می‌ده.',prompt:'علامت سؤال را لمس کن.',options:[{label:'من به پاسخ قطعی نیاز دارم.',text:'این خواسته، خواسته‌ی عجیبی نیست؛ انسان برای زندگی کردن به نوعی اطمینان نیاز دارد. پرسش این است که وقتی این اطمینان نمی‌رسد، چه اتفاقی برای زندگی ما می‌افتد.'},{label:'می‌توانم با نادانسته‌ها زندگی کنم.',text:'این موضع، پذیرش یک محدودیت است بدون تسلیم شدن به آن. زندگی کردن با پرسش‌های باز، به تحمل ابهام نیاز دارد؛ و این تحمل، خودش شکلی از بلوغ است.'},{label:'می‌خواهم پرسش را دقیق‌تر بفهمم.',text:'این انتخاب، پرسش را جدی می‌گیرد بدون اینکه بخواهد فوراً به آن پاسخ دهد. گاهی دقیق‌تر کردن یک پرسش، مهم‌تر از یافتن پاسخ آن است.'}]},
+{id:'path',title:'راه ادامه دادن',kind:'reveal',text:'آگاهی از پوچی لزوماً به معنای بی‌حرکتی نیست.\n\nدر اندیشه‌ی کامو، شور زندگی و طغیان می‌تونن شیوه‌هایی برای مواجهه با جهانی باشن که پاسخ نهایی تضمین‌شده‌ای نداره.',prompt:'نور را روی سه سنگ حرکت بده.',items:[{label:'آگاهی',text:'آگاهی یعنی دیدن جهان آن‌گونه که هست، بدون اضافه کردن تسلی‌های ساختگی. این آگاهی هم‌زمان رنج‌آور و آزادکننده است.'},{label:'انتخاب',text:'در جهانی که پاسخ نهایی تضمین نشده، انتخاب اهمیت بیشتری پیدا می‌کند، نه کمتر. چون دیگر نمی‌توانیم مسئولیت را به یک نظم از پیش تعیین‌شده بسپاریم.'},{label:'ادامه دادن',text:'ادامه دادن، شکل عملی پاسخ به پوچی است. نه انکار آن، نه تسلیم در برابر آن؛ بلکه زیستن با آن و ساختن چیزی در همین شرایط.'}]},
+{id:'final-door',title:'درِ بی‌پاسخ',kind:'picker',text:'برای عبور از این اتاق، لازم نیست یک پاسخ همیشگی برای معنای زندگی پیدا کنی.\n\nفقط باید یک چیز رو انتخاب کنی: در این لحظه، دوست داری کدام پرسش رو با خودت ببری؟',prompt:'یک پرسش انتخاب کن. این انتخاب در دفترچه‌ات ذخیره می‌شود.',options:[{label:'چه چیزی برای من ارزشمند است؟',text:'پرسش «چه چیزی برای من ارزشمند است؟» در دفترچه‌ات ثبت شد. این پرسش، هر بار که برمی‌گردی، ممکن است پاسخ تازه‌ای داشته باشد.'},{label:'چه چیزی را هنوز نمی‌دانم؟',text:'پرسش «چه چیزی را هنوز نمی‌دانم؟» در دفترچه‌ات ثبت شد. این پرسش، نقشه‌ای است از جاهایی که هنوز ندیده‌ای.'},{label:'کدام باورم نیاز به بازنگری دارد؟',text:'پرسش «کدام باورم نیاز به بازنگری دارد؟» در دفترچه‌ات ثبت شد. این پرسش، دعوتی است به اینکه گاهی باورهایت را دوباره نگاه کنی.'}]}
+],puzzle:null}
+];
+
+var FRAGMENTS = ['هر','جزئیات','کوچک','می‌تواند','شروع','یک','داستان','تازه','باشد','اگر','کسی','به‌خاطرش','بسپارد'];
+
+var LETTER_TEXT = 'رُما،\n\n' +
+'نمی‌دونم وقتی وارد این موزه شدی، فکر می‌کردی قراره با چه چیزهایی روبه‌رو بشی. امیدوارم توی این مسیر، بین شعرها، رمان‌ها و سؤال‌های فیلسوف‌ها، چند لحظه پیدا کرده باشی که دلت بخواد بیشتر توشون بمونی.\n\n' +
+'این موزه رو برای تو ساختم، چون می‌دونم ادبیات و فلسفه برات فقط اسم چند نویسنده و مجموعه‌ای از کتاب‌ها نیستن. هرکدوم می‌تونن دری باشن به یک جهان تازه؛ جهانی که با هر بار خوندن، ممکنه چیز متفاوتی ازش ببینی.\n\n' +
+'یه بار گفتی عاشق نامه‌های دست‌نویسی.\n\n' +
+'همین جمله توی ذهنم موند و باعث شد به این فکر کنم که اولین یادگاری‌ای که بهت می‌دم، می‌تونه چیزی فراتر از چند صفحه نوشته باشه.\n\n' +
+'برای همین تصمیم گرفتم به‌جای یک نامه‌ی معمولی، جایی بسازم که خودت توش قدم بزنی، چیزهایی رو کشف کنی و هر بار که خواستی، دوباره بهش برگردی.\n\n' +
+'شاید از بین تمام چیزهایی که اینجا دیدی، یک شعر، یک سؤال یا حتی یک اتاق بیشتر از بقیه توی ذهنت بمونه. شاید هم فقط از گشتن توی این دنیاها لذت برده باشی. هرکدوم که باشه، همین که این تجربه چند دقیقه از روزت رو متفاوت کرده باشه، برای من ارزشمنده.\n\n' +
+'از آشنایی‌هایی خوشم میاد که با یک گفت‌وگوی ساده شروع می‌شن؛ از حرف زدن درباره‌ی کتاب‌ها، از سؤال‌هایی که جواب قطعی ندارن و از اینکه هر آدمی هنوز چیزهای زیادی برای کشف کردن داره.\n\n' +
+'این موزه هم از یک جزئیات کوچیک شروع شد و به چیزی تبدیل شد که حالا می‌تونی توش قدم بزنی.\n\n' +
+'امیدوارم هر وقت دوباره بهش سر زدی، یک چیز تازه پیدا کنی؛ حتی اگر فقط یک جمله باشه که این بار، معنای متفاوتی برات داشته باشه.\n\n' +
+'ممنون که یکی از خواننده‌های این داستان شدی.\n\n' +
+'از طرف من،\n\n' +
+'علیرضا';
+
+var ENTRANCE_PASSAGE = 'بعضی دنیاها پشت درهای یک ساختمون نیستن , پشت جلد یک کتاب پنهون شدن.\n\n' +
+'اینجا می‌تونی بین شعرها قدم بزنی ، وارد جهان رمان‌ها بشی ، با سؤال‌های فیلسوف‌ها روبه‌رو بشی و چیزهایی رو کشف کنی که شاید بعد از بستن کتاب هم باهات بمونن.\n\n' +
+'موزه منتظر عجله کردن نیست.\n\n' +
+'هر دری رو که خواستی باز کن.\n\n' +
+'شاید در آخر ، چیزی پیدا کنی که از اول دنبالش نبودی :)';
+
+var SECRET_ROOM_TEXT = 'این اتاق از بقیه کوچک‌تره.\n\n' +
+'نه مجسمه‌ای در اون قرار داره، نه ویترینی برای نمایش یک اثر مشهور.\n\n' +
+'فقط یک میز هست و یک صفحه‌ی سفید.\n\n' +
+'شاید تمام این موزه برای این ساخته شده که در پایان ، به چیزی برسی که از جنس اطلاعات نیست ؛ از جنس توجه کردنه.\n\n' +
+'یک جزئیات کوچک ، گاهی می‌تونه الهام‌بخش ساختن چیزی بزرگ‌تر بشه.';
+
+var FINAL_LETTER_TITLE = 'برای رُما ، در آخرین اتاق';
+var FINAL_LETTER = [
+  {t:'رُما،', cls:'salut'},
+  {t:'اگه تا اینجا اومدی، یعنی از تمام اتاق‌ها و راهروهای این موزه گذشتی. نمی‌دونم کدوم قسمت بیشتر توی ذهنت مونده؛ شعرها، سؤال‌های بی‌جواب، شخصیت‌هایی که باهاشون روبه‌رو شدی یا شاید یکی از اون اتاق‌هایی که دلت نمی‌خواست زود ازش بیرون بیای.'},
+  {t:'ولی یه چیزی هست که دلم می‌خواست فقط همین آخر بهت بگم.'},
+  {t:'همه‌چیز از یه آشنایی ساده شروع شد. از یه کتاب‌فروشی، از حرف زدن درباره‌ی کتاب‌ها و فیلسوف‌ها و از گفت‌وگویی که می‌تونست مثل خیلی از گفت‌وگوهای دیگه تموم بشه و به دست فراموشی سپرده بشه.'},
+  {t:'اما بعضی جزئیات توی ذهن آدم می‌مونن.'},
+  {t:'مثلاً وقتی گفتی عاشق نامه‌های دست‌نویسی.'},
+  {t:'شاید برای تو فقط یه جمله‌ی ساده بود؛ چیزی که وسط حرف‌هامون گفتی و ازش گذشتیم. ولی من بهش فکر کردم. به اینکه چقدر جالبه یه نفر هنوز از چیزی خوشش بیاد که برای نوشتنش باید وقت گذاشت، کلمه‌ها رو انتخاب کرد، چند بار خوندشون و آخر سر، به‌جای پاک کردن و دوباره نوشتن، تصمیم گرفت همون نسخه رو به دست یه نفر دیگه بسپره.'},
+  {t:'بعد با خودم فکر کردم اگه قرار باشه اولین یادگاری‌ای که از من می‌گیری یه نوشته باشه، چرا فقط چند صفحه کاغذ باشه؟'},
+  {t:'چرا یه جایی نباشه که بتونی توش قدم بزنی؟ بین جهان‌هایی که هرکدوم قصه‌ای دارن، سؤال‌هایی که جواب قطعی ندارن و آدم‌هایی که حتی بعد از تموم شدن کتابشون، هنوز حرفی برای گفتن دارن.'},
+  {t:'و این شد موزه‌ای که الان توش هستی.'},
+  {t:'البته اینجا رو من ساختم، اما تمام چیزهایی که توش پیدا می‌کنی از قبل وجود داشتن؛ توی کتاب‌ها، توی ذهن آدم‌ها و توی سؤال‌هایی که قرن‌هاست کسی نتونسته برای همه‌شون یه جواب یکسان پیدا کنه. من فقط سعی کردم چندتاشون رو کنار هم بذارم تا بشه جور دیگه‌ای تجربه‌شون کرد.'},
+  {t:'نمی‌دونم بعد از دیدن این موزه، نگاهت به هیچ‌کدوم از این کتاب‌ها یا شخصیت‌ها تغییر می‌کنه یا نه. حتی نمی‌دونم کدوم بخشش رو بیشتر دوست داشتی. ولی امیدوارم حداقل یه گوشه از این مسیر برات جالب بوده باشه؛ یه جمله، یه اتاق یا حتی یه سؤال که بعد از بستن صفحه هم باهات بمونه.'},
+  {t:'راستش، من از این مدل آشنایی‌ها خوشم میاد؛ آشنایی‌هایی که لازم نیست از همون اول معلوم باشه قراره به کجا برسن. آدم‌ها کم‌کم خودشون رو نشون می‌دن، حرف‌ها ادامه پیدا می‌کنن و هر بار چیز تازه‌ای برای شناختن پیدا می‌شه.'},
+  {t:'برای همین عجله‌ای ندارم که برای این آشنایی اسم خاصی بذارم یا ازش انتظار مشخصی داشته باشم. همین که تونستم ایده‌ای رو که توی ذهنم بود به چیزی تبدیل کنم که حالا تو داری تجربه‌ش می‌کنی، برای من اتفاق جالبی بوده.'},
+  {t:'شاید یه روز دوباره به این موزه سر بزنی و یه چیز تازه کشف کنی. شاید هم همین یک بار کافی باشه. در هر صورت، اینجا برای تو ساخته شده و امیدوارم وقتی ازش بیرون می‌ری، خاطره‌ی خوبی ازش داشته باشی.'},
+  {t:'و حالا که به آخرین اتاق رسیدی، بذار یه چیز رو روشن کنم:'},
+  {t:'این موزه قرار نبود آخرش تو رو به یه جواب برسونه. قرار بود یه جهان تازه جلوی پات بذاره؛ و جرقه‌ی ساختنش، یه جمله بود که از تو شنیدم.', bold:true},
+  {t:'فکر می‌کنم برای یه یادگاری، همین شروع بدی نیست.'},
+  {t:'ممنون که تا آخر این مسیر اومدی.'},
+  {t:'علیرضا', cls:'sign', bold:true}
+];
+
+var STORAGE_KEY = 'museum_of_unfinished_worlds_v1';
+var state = {
+  visited:{}, explored:{}, solved:{}, fragments:[], choices:[], rewards:[],
+  secretUnlocked:false, letterRead:false, secretVisited:false,
+  finalLetterRead:false, finalDoorNoticed:false
+};
+var storageOK = true;
+try {
+  var probe = '__mw_probe__';
+  window.localStorage.setItem(probe, '1');
+  window.localStorage.removeItem(probe);
+} catch(e){ storageOK = false; }
+
+function uniqueFragmentCount(){
+  var seen = {};
+  var n = 0;
+  for (var i = 0; i < state.fragments.length; i++){
+    var v = state.fragments[i];
+    if (!seen[v]){ seen[v] = true; n++; }
+  }
+  return n;
+}
+
+function save(){
+  if (!storageOK) return;
+  try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ storageOK = false; }
+}
+function load(){
+  if (!storageOK) return;
+  try {
+    var raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    var obj = JSON.parse(raw);
+    if (obj && typeof obj === 'object'){
+      state.visited = obj.visited || {};
+      state.explored = obj.explored || {};
+      state.solved = obj.solved || {};
+      state.fragments = Array.isArray(obj.fragments) ? obj.fragments : [];
+      state.choices = Array.isArray(obj.choices) ? obj.choices : [];
+      state.rewards = Array.isArray(obj.rewards) ? obj.rewards : [];
+      state.secretUnlocked = !!obj.secretUnlocked;
+      state.letterRead = !!obj.letterRead;
+      state.secretVisited = !!obj.secretVisited;
+      state.finalLetterRead = !!obj.finalLetterRead;
+      state.finalDoorNoticed = !!obj.finalDoorNoticed;
+      // BUGFIX: self-heal — if all 13 unique fragments are present,
+      // secretUnlocked must be true regardless of what the saved flag said.
+      if (uniqueFragmentCount() === 13 && !state.secretUnlocked){
+        state.secretUnlocked = true;
+        try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+      }
+    }
+  } catch(e){ /* corrupt storage: ignore */ }
+}
+
+function toast(msg){
+  var wrap = $('#toast-wrap');
+  var t = el('div','toast', msg);
+  wrap.appendChild(t);
+  setTimeout(function(){
+    t.classList.add('out');
+    setTimeout(function(){ if (t.parentNode) t.parentNode.removeChild(t); }, 520);
+  }, 3600);
+}
+function showModal(title, text, actions){
+  $('#modal-title').textContent = title;
+  $('#modal-text').textContent = text;
+  var box = $('#modal-actions');
+  box.textContent = '';
+  actions.forEach(function(a){
+    var b = el('button', a.primary ? 'btn btn-primary' : 'btn btn-ghost', a.label);
+    b.type = 'button';
+    b.addEventListener('click', function(){
+      $('#modal-wrap').classList.remove('open');
+      if (a.fn) a.fn();
+    });
+    box.appendChild(b);
+  });
+  $('#modal-wrap').classList.add('open');
+}
+
+var currentScreen = 'login-screen';
+var currentWorldId = null;
+
+function setScreen(id){
+  $$('.screen').forEach(function(s){
+    s.classList.toggle('active', s.id === id);
+  });
+  currentScreen = id;
+  var showTopbar = (id === 'map-screen' || id === 'world-screen' || id === 'secret-screen' || id === 'final-room-screen');
+  $('#topbar').classList.toggle('visible', showTopbar);
+  updateTopbar();
+  if (id === 'map-screen' || id === 'world-screen' || id === 'secret-screen' || id === 'final-room-screen'){
+    var scr = document.getElementById(id);
+    if (scr) scr.scrollTop = 0;
+  }
+}
+
+function updateTopbar(){
+  var done = state.rewards.length;
+  $('#progress-pill').textContent = 'کشف‌شده: ' + toFa(done) + ' از ' + toFa(12);
+  var backBtn = $('#btn-back');
+  if (currentScreen === 'world-screen' || currentScreen === 'secret-screen' || currentScreen === 'final-room-screen'){
+    backBtn.style.display = '';
+  } else if (currentScreen === 'map-screen'){
+    backBtn.style.display = '';
+    backBtn.textContent = 'ورودی موزه';
+  } else {
+    backBtn.style.display = 'none';
+  }
+  if (currentScreen === 'world-screen' && currentWorldId){
+    var w = getWorld(currentWorldId);
+    $('#tb-title').textContent = w ? w.title : '';
+  } else if (currentScreen === 'secret-screen'){
+    $('#tb-title').textContent = 'بخشی که هنوز نوشته نشده';
+  } else if (currentScreen === 'final-room-screen'){
+    $('#tb-title').textContent = 'آخرین اتاق';
+  } else {
+    $('#tb-title').textContent = '';
+  }
+  if (currentScreen === 'world-screen' || currentScreen === 'final-room-screen'){
+    backBtn.textContent = 'بازگشت به موزه';
+  }
+}
+
+function getWorld(id){
+  for (var i=0;i<WORLDS.length;i++) if (WORLDS[i].id === id) return WORLDS[i];
+  return null;
+}
+function worldIndex(id){
+  for (var i=0;i<WORLDS.length;i++) if (WORLDS[i].id === id) return i;
+  return -1;
+}
+
+/* BUGFIX: isFinalDoorUnlocked — self-healing + console diagnostic */
+function isFinalDoorUnlocked(){
+  // Self-heal: if all 13 unique fragments exist, force secretUnlocked = true.
+  if (uniqueFragmentCount() === 13 && state.secretUnlocked !== true){
+    state.secretUnlocked = true;
+    save();
+  }
+  var worldsDone = state.rewards.length === 12;
+  var secretDone = state.secretUnlocked === true;
+  if (!worldsDone || !secretDone){
+    try {
+      var missing = [];
+      if (!worldsDone) missing.push('world rewards ' + state.rewards.length + '/12');
+      if (!secretDone) missing.push('unique fragments ' + uniqueFragmentCount() + '/13');
+      console.log('[Final Door] Locked. Missing:', missing.join(' | '));
+    } catch(e){}
+    return false;
+  }
+  return true;
+}
+
+(function initLogin(){
+  var form = $('#login-form');
+  var userInput = $('#login-user');
+  var passInput = $('#login-pass');
+  var errBox = $('#login-error');
+  var submitBtn = $('#login-submit');
+  var toggleBtn = $('#toggle-pw');
+  var locked = false;
+
+  toggleBtn.addEventListener('click', function(){
+    var showing = passInput.type === 'text';
+    passInput.type = showing ? 'password' : 'text';
+    toggleBtn.textContent = showing ? 'نمایش' : 'پنهان';
+    toggleBtn.setAttribute('aria-label', showing ? 'نمایش رمز عبور' : 'پنهان کردن رمز عبور');
+  });
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (locked) return;
+    var u = userInput.value;
+    var p = passInput.value;
+    if (u.trim() === '' || p.trim() === ''){
+      errBox.textContent = 'نام کاربری و رمز عبور رو وارد کن.';
+      return;
+    }
+    if (u === 'Arghavan' && p === 'Arghavan'){
+      errBox.textContent = '';
+      locked = true;
+      submitBtn.disabled = true;
+      $('#login-hint').textContent = 'در حال باز شدن...';
+      var loginScreen = document.getElementById('login-screen');
+      loginScreen.classList.add('opening');
+      setTimeout(function(){
+        loginScreen.classList.remove('active');
+        loginScreen.classList.remove('opening');
+        showEntrance();
+        submitBtn.disabled = false;
+        $('#login-hint').textContent = 'برای ورود، کلید این موزه رو وارد کن.';
+        locked = false;
+      }, reduceMotion ? 200 : 1500);
+    } else {
+      errBox.textContent = 'این کلید درست نیست. دوباره امتحان کن.';
+    }
+  });
+})();
+
+function showEntrance(){
+  var p = $('#entrance-passage');
+  p.textContent = '';
+  p.appendChild(paras(ENTRANCE_PASSAGE));
+  renderEntranceShard();
+  setScreen('entrance-screen');
+}
+
+function renderEntranceShard(){
+  var slot = $('#entrance-shard-slot');
+  slot.textContent = '';
+  var visitedCount = Object.keys(state.visited).length;
+  if (state.fragments.indexOf(12) !== -1) return;
+  if (visitedCount < 6) return;
+  var btn = el('button','shard');
+  btn.type = 'button';
+  var g = el('span', null, '✦');
+  g.style.fontSize = '1.2rem';
+  btn.appendChild(g);
+  btn.appendChild(el('span', null, 'چیزی روی سنگ‌فرش ورودی می‌درخشد.'));
+  btn.addEventListener('click', function(){
+    collectFragment(12);
+    slot.textContent = '';
+  });
+  slot.appendChild(btn);
+}
+
+function renderMap(){
+  var host = $('#map-wings');
+  host.textContent = '';
+
+  ['A','B','C'].forEach(function(wk){
+    var wing = el('div','wing');
+    var head = el('div','wing-head');
+    head.appendChild(el('h3', null, WINGS[wk]));
+    head.appendChild(el('div','wing-line'));
+    wing.appendChild(head);
+    var grid = el('div','wing-grid');
+    WORLDS.forEach(function(w, idx){
+      if (w.wing !== wk) return;
+      grid.appendChild(renderWorldCard(w, idx));
+    });
+    wing.appendChild(grid);
+    host.appendChild(wing);
+  });
+
+  if (state.secretUnlocked){
+    var wing = el('div','wing');
+    var head = el('div','wing-head');
+    head.appendChild(el('h3', null, 'بخشی تازه'));
+    head.appendChild(el('div','wing-line'));
+    wing.appendChild(head);
+    var grid = el('div','wing-grid');
+    var card = el('button','world-card secret-card');
+    card.type = 'button';
+    card.appendChild(el('span','card-glyph','✉'));
+    card.appendChild(el('span','card-title','بخشی که هنوز نوشته نشده'));
+    card.appendChild(el('span','card-mark','✦'));
+    card.addEventListener('click', openSecretRoom);
+    grid.appendChild(card);
+    wing.appendChild(grid);
+    host.appendChild(wing);
+  }
+
+  var fwing = el('div','wing final-wing');
+  var fhead = el('div','wing-head');
+  fhead.appendChild(el('h3', null, 'آخرین در'));
+  fhead.appendChild(el('div','wing-line'));
+  fwing.appendChild(fhead);
+  var fgrid = el('div','wing-grid');
+  fgrid.appendChild(renderFinalDoor());
+  fwing.appendChild(fgrid);
+  host.appendChild(fwing);
+
+  if (isFinalDoorUnlocked() && !state.finalDoorNoticed){
+    state.finalDoorNoticed = true;
+    save();
+    setTimeout(function(){
+      toast('به آخرین در رسیدی. این یکی رو خودت باز کن.');
+    }, 700);
+  }
+}
+
+function renderWorldCard(w, idx){
+  var complete = state.rewards.indexOf(w.id) !== -1;
+  var visited = !!state.visited[w.id];
+  var hasFragment = state.fragments.indexOf(idx) !== -1;
+  var card = el('button','world-card');
+  card.type = 'button';
+  card.classList.add(complete ? 'state-complete' : (visited ? 'state-visited' : 'state-new'));
+  card.setAttribute('aria-label', w.title + (complete ? ' — کامل شده' : (visited ? ' — بازدید شده' : ' — بازدید نشده')));
+  card.appendChild(el('span','card-glyph', w.glyph));
+  card.appendChild(el('span','card-title', w.title));
+  card.appendChild(el('span','card-mark', complete ? '★' : (visited ? '◐' : '○')));
+  if (hasFragment){
+    card.appendChild(el('span','card-shard','✦'));
+  }
+  card.addEventListener('click', function(){ enterWorld(w.id); });
+  return card;
+}
+
+function renderFinalDoor(){
+  var unlocked = isFinalDoorUnlocked();
+  var card = el(unlocked ? 'button' : 'div', 'world-card final-door-card ' + (unlocked ? 'unlocked' : 'locked'));
+  if (unlocked) card.type = 'button';
+  card.setAttribute('aria-label', unlocked ? 'آخرین در — باز است' : 'آخرین در — هنوز قفل است');
+  card.appendChild(el('span','door-glyph', unlocked ? '✧' : '✦'));
+  card.appendChild(el('span','card-title','آخرین در'));
+  if (unlocked){
+    card.appendChild(el('span','door-note','به آخرین در رسیدی. این یکی رو خودت باز کن.'));
+    card.addEventListener('click', openFinalRoom);
+  } else {
+    card.appendChild(el('span','door-note','هنوز یه در باقی مونده. برای باز کردنش، باید تمام درهای قبلی رو کشف کرده باشی.'));
+  }
+  return card;
+}
+
+function showMap(){
+  renderMap();
+  setScreen('map-screen');
+}
+
+function enterWorld(id){
+  var w = getWorld(id);
+  if (!w) return;
+  currentWorldId = id;
+  state.visited[id] = true;
+  save();
+  renderWorld(w);
+  setScreen('world-screen');
+  checkWorldProgress(w, true);
+}
+
+function renderWorld(w){
+  var host = $('#world-container');
+  host.textContent = '';
+  var head = el('div','world-head');
+  head.appendChild(el('h2','world-title', w.title));
+  head.appendChild(el('div','world-meta', WINGS[w.wing]));
+  host.appendChild(head);
+  host.appendChild(paras(w.entrance, 'world-entrance'));
+  var grid = el('div','exhibit-grid');
+  w.exhibits.forEach(function(ex){
+    grid.appendChild(renderExhibit(w, ex));
+  });
+  host.appendChild(grid);
+  host.appendChild(renderFragmentSlot(w));
+  if (w.puzzle) host.appendChild(renderPuzzle(w));
+  if (state.rewards.indexOf(w.id) !== -1) host.appendChild(renderCompletion(w));
+  var back = el('button','btn btn-primary world-back','بازگشت به موزه');
+  back.type = 'button';
+  back.addEventListener('click', function(){
+    showMap();
+  });
+  host.appendChild(back);
+}
+
+function isExplored(w, exId){
+  var arr = state.explored[w.id] || [];
+  return arr.indexOf(exId) !== -1;
+}
+
+function markExplored(w, exId, choiceValue){
+  if (!state.explored[w.id]) state.explored[w.id] = [];
+  if (state.explored[w.id].indexOf(exId) === -1){
+    state.explored[w.id].push(exId);
+  }
+  if (choiceValue){
+    var ex = null;
+    for (var i=0;i<w.exhibits.length;i++) if (w.exhibits[i].id === exId) ex = w.exhibits[i];
+    state.choices.push({world: w.title, exhibit: ex ? ex.title : '', value: choiceValue});
+  }
+  save();
+  refreshExhibitCard(w, exId);
+  checkWorldProgress(w, false);
+}
+
+function refreshExhibitCard(w, exId){
+  var cards = $$('#world-container .exhibit-card');
+  cards.forEach(function(c){
+    if (c.dataset.exhibit === exId){
+      c.classList.add('done');
+    }
+  });
+}
+
+function checkWorldProgress(w, entering){
+  var exploredArr = state.explored[w.id] || [];
+  var allEx = w.exhibits.every(function(ex){
+    return exploredArr.indexOf(ex.id) !== -1;
+  });
+  var idx = worldIndex(w.id);
+  if (allEx && state.fragments.indexOf(idx) === -1){
+    collectFragment(idx);
+  }
+  var puzzleOK = !w.puzzle || !!state.solved[w.id];
+  if (allEx && puzzleOK && state.rewards.indexOf(w.id) === -1){
+    state.rewards.push(w.id);
+    save();
+    toast('نشان «' + w.reward + '» به دفترچه‌ات اضافه شد.');
+    updateWorldExtras(w);
+    return;
+  }
+  if (!entering) updateWorldExtras(w);
+}
+
+function collectFragment(idx){
+  if (state.fragments.indexOf(idx) !== -1) return;
+  state.fragments.push(idx);
+  save();
+  toast('قطعه‌ای از یک نوشته‌ی ناقص پیدا کردی: «' + FRAGMENTS[idx] + '»');
+  if (uniqueFragmentCount() === 13 && !state.secretUnlocked){
+    state.secretUnlocked = true;
+    save();
+    setTimeout(function(){
+      toast('یک نوشته‌ی ناقص، حالا قابل خواندن شده. دفترچه‌ات را باز کن.');
+    }, 1400);
+  }
+}
+
+function updateWorldExtras(w){
+  var host = $('#world-container');
+  if (!host) return;
+  var fs = host.querySelector('.fragment-slot');
+  if (fs){
+    var newFs = renderFragmentSlot(w);
+    fs.parentNode.replaceChild(newFs, fs);
+  }
+  var comp = host.querySelector('.completion-card');
+  if (comp) comp.parentNode.removeChild(comp);
+  if (state.rewards.indexOf(w.id) !== -1){
+    var backBtn = host.querySelector('.world-back');
+    var card = renderCompletion(w);
+    if (backBtn) host.insertBefore(card, backBtn);
+    else host.appendChild(card);
+  }
+  updateTopbar();
+}
+
+function renderFragmentSlot(w){
+  var idx = worldIndex(w.id);
+  var found = state.fragments.indexOf(idx) !== -1;
+  var slot = el('div','fragment-slot' + (found ? ' found' : ''));
+  var g = el('span','shard-glyph','✦');
+  slot.appendChild(g);
+  if (found){
+    slot.appendChild(el('div', null, 'قطعه‌ای از یک نوشته‌ی ناقص را در این بخش پیدا کردی.'));
+    slot.appendChild(el('div', null, '«' + FRAGMENTS[idx] + '»'));
+  } else {
+    slot.appendChild(el('div', null, 'در این بخش، هنوز چیزی کشف نشده.'));
+  }
+  return slot;
+}
+
+function renderCompletion(w){
+  var card = el('div','completion-card');
+  card.appendChild(paras(w.completion || 'این بخش از موزه رو کشف کردی.\n\nمی‌تونی به راهت ادامه بدی یا هر وقت خواستی برگردی و دوباره بهش سر بزنی.'));
+  var rw = el('div','rw','نشان «' + w.reward + '»');
+  card.appendChild(rw);
+  return card;
+}
+
+function renderExhibit(w, ex){
+  var card = el('div','exhibit-card');
+  card.dataset.exhibit = ex.id;
+  if (isExplored(w, ex.id)) card.classList.add('done');
+  card.appendChild(el('h3','exhibit-title', ex.title));
+  card.appendChild(paras(ex.text, 'exhibit-text'));
+  var out = el('div','exhibit-out');
+  card.appendChild(out);
+  if (ex.prompt) out.appendChild(el('p','prompt', ex.prompt));
+  var result = el('div','result');
+  var done = isExplored(w, ex.id);
+  if (ex.kind === 'choice') buildChoice(w, ex, out, result, done);
+  else if (ex.kind === 'reveal') buildReveal(w, ex, out, result, done);
+  else if (ex.kind === 'multi') buildMulti(w, ex, out, result, done);
+  else if (ex.kind === 'sequence') buildSequence(w, ex, out, result, done);
+  else if (ex.kind === 'picker') buildPicker(w, ex, out, result, done);
+  out.appendChild(result);
+  return card;
+}
+
+function buildChoice(w, ex, out, result, done){
+  var wrap = el('div','opts');
+  ex.options.forEach(function(o){
+    var b = el('button','opt', o.label);
+    b.type = 'button';
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(wrap.children, function(c){ c.classList.remove('selected'); });
+      b.classList.add('selected');
+      result.textContent = '';
+      result.appendChild(paras(o.text, 'reflection'));
+      markExplored(w, ex.id, o.label);
+    });
+    wrap.appendChild(b);
+  });
+  out.appendChild(wrap);
+}
+
+function buildReveal(w, ex, out, result, done){
+  var wrap = el('div','opts');
+  var revealed = {};
+  ex.items.forEach(function(it, i){
+    var b = el('button','opt', it.label);
+    b.type = 'button';
+    b.addEventListener('click', function(){
+      if (revealed[i]) return;
+      revealed[i] = true;
+      b.classList.add('used');
+      result.appendChild(paras(it.text, 'reflection'));
+      var allRevealed = ex.items.every(function(_, j){ return revealed[j]; });
+      if (allRevealed) markExplored(w, ex.id, null);
+    });
+    wrap.appendChild(b);
+  });
+  out.appendChild(wrap);
+  if (done) result.appendChild(el('div','feedback-ok','همه‌ی بخش‌های این شیء بررسی شد.'));
+}
+
+function buildMulti(w, ex, out, result, done){
+  var wrap = el('div','opts');
+  var active = {};
+  ex.items.forEach(function(it, i){
+    var b = el('button','opt', it.label);
+    b.type = 'button';
+    b.addEventListener('click', function(){
+      if (active[i]) return;
+      active[i] = true;
+      b.classList.add('active');
+      var allActive = ex.items.every(function(_, j){ return active[j]; });
+      if (allActive){
+        result.textContent = '';
+        result.appendChild(paras(ex.success, 'reflection'));
+        markExplored(w, ex.id, null);
+      }
+    });
+    wrap.appendChild(b);
+  });
+  out.appendChild(wrap);
+  if (done) result.appendChild(paras(ex.success, 'reflection'));
+}
+
+function buildSequence(w, ex, out, result, done){
+  var correct = ex.items.slice();
+  var shuffled = correct.slice();
+  for (var i = shuffled.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = t;
+  }
+  var chosen = [];
+  var pool = el('div','opts');
+  var answerBox = el('div','opts');
+  answerBox.style.marginTop = '12px';
+  answerBox.style.minHeight = '8px';
+  var feedback = el('div','result');
+
+  function renderAnswer(){
+    answerBox.textContent = '';
+    chosen.forEach(function(txt, i){
+      answerBox.appendChild(el('div','opt selected', (i+1) + '. ' + txt));
+    });
+  }
+
+  if (done){
+    correct.forEach(function(txt, i){
+      answerBox.appendChild(el('div','opt selected', (i+1) + '. ' + txt));
+    });
+    feedback.appendChild(el('div','feedback-ok','زنجیره درست چیده شده است.'));
+    out.appendChild(answerBox);
+    out.appendChild(feedback);
+    return;
+  }
+
+  shuffled.forEach(function(txt){
+    var b = el('button','opt', txt);
+    b.type = 'button';
+    b.addEventListener('click', function(){
+      if (chosen.indexOf(txt) !== -1) return;
+      chosen.push(txt);
+      b.classList.add('used');
+      renderAnswer();
+      if (chosen.length === correct.length){
+        var ok = chosen.every(function(t, i){ return t === correct[i]; });
+        feedback.textContent = '';
+        if (ok){
+          feedback.appendChild(el('div','feedback-ok', ex.success));
+          markExplored(w, ex.id, null);
+        } else {
+          feedback.appendChild(el('div','feedback-no','این ترتیب درست نیست. زنجیره پاک شد؛ دوباره تلاش کن.'));
+          chosen = [];
+          Array.prototype.forEach.call(pool.children, function(c){ c.classList.remove('used'); });
+          setTimeout(renderAnswer, 60);
+        }
+      }
+    });
+    pool.appendChild(b);
+  });
+
+  out.appendChild(pool);
+  out.appendChild(answerBox);
+  out.appendChild(feedback);
+}
+
+function buildPicker(w, ex, out, result, done){
+  var wrap = el('div','opts');
+  ex.options.forEach(function(o){
+    var b = el('button','opt', o.label);
+    b.type = 'button';
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(wrap.children, function(c){ c.classList.remove('selected'); });
+      b.classList.add('selected');
+      result.textContent = '';
+      result.appendChild(paras(o.text, 'reflection'));
+      markExplored(w, ex.id, o.label);
+    });
+    wrap.appendChild(b);
+  });
+  out.appendChild(wrap);
+}
+
+function renderPuzzle(w){
+  var p = w.puzzle;
+  var card = el('div','puzzle-card');
+  card.appendChild(el('h3','exhibit-title', p.title));
+  card.appendChild(paras(p.text, 'exhibit-text'));
+  card.appendChild(el('p','prompt', p.question));
+  var solved = !!state.solved[w.id];
+  var wrap = el('div','opts');
+  var feedback = el('div','result');
+
+  p.options.forEach(function(opt, i){
+    var b = el('button','opt', opt);
+    b.type = 'button';
+    if (solved && i === p.correct) b.classList.add('selected');
+    b.addEventListener('click', function(){
+      if (state.solved[w.id]) return;
+      feedback.textContent = '';
+      if (i === p.correct){
+        state.solved[w.id] = true;
+        save();
+        Array.prototype.forEach.call(wrap.children, function(c){ c.classList.remove('selected'); });
+        b.classList.add('selected');
+        feedback.appendChild(paras(p.ok, 'reflection'));
+        feedback.appendChild(el('div','feedback-ok','پاسخ درست بود.'));
+        checkWorldProgress(w, false);
+        updateWorldExtras(w);
+      } else {
+        feedback.appendChild(el('div','feedback-no', p.wrong));
+      }
+    });
+    wrap.appendChild(b);
+  });
+
+  card.appendChild(wrap);
+  card.appendChild(feedback);
+  if (solved){
+    feedback.textContent = '';
+    feedback.appendChild(paras(p.ok, 'reflection'));
+    feedback.appendChild(el('div','feedback-ok','این پازل حل شده است.'));
+  }
+  return card;
+}
+
+function openJournal(){ renderJournal(); $('#journal-panel').classList.add('open'); }
+function closeJournal(){ $('#journal-panel').classList.remove('open'); }
+
+var typedSentenceTimer = null;
+
+function renderJournal(){
+  var body = $('#journal-body');
+  body.textContent = '';
+  if (typedSentenceTimer){ clearTimeout(typedSentenceTimer); typedSentenceTimer = null; }
+
+  body.appendChild(paras(
+    'هر موزه‌ای اشیایی برای نمایش داره.\n\n' +
+    'اما چیزی که در ذهن بازدیدکننده باقی می‌مونه، همیشه همان چیزی نیست که پشت شیشه قرار گرفته.\n\n' +
+    'اینجا چیزهایی جمع می‌شن که خودت انتخاب کردی، کشف کردی یا خواستی دوباره بهشون برگردی.',
+    'j-intro'
+  ));
+
+  body.appendChild(el('h4', null, 'نشان‌ها'));
+  var rg = el('div','reward-grid');
+  WORLDS.forEach(function(w){
+    var unlocked = state.rewards.indexOf(w.id) !== -1;
+    var chip = el('div','reward-chip' + (unlocked ? ' unlocked' : ''));
+    chip.appendChild(el('span','rc-glyph', unlocked ? '✦' : '○'));
+    chip.appendChild(el('span', null, w.reward));
+    rg.appendChild(chip);
+  });
+  body.appendChild(rg);
+
+  body.appendChild(el('h4', null, 'جهان‌هایی که دیدی'));
+  var visitedIds = Object.keys(state.visited);
+  if (visitedIds.length === 0){
+    body.appendChild(el('div','j-intro','هنوز هیچ جهانی را باز نکرده‌ای.'));
+  } else {
+    var ul = el('ul','j-list');
+    WORLDS.forEach(function(w){
+      if (!state.visited[w.id]) return;
+      var li = el('li', null, w.title);
+      var ex = state.explored[w.id] || [];
+      var sub = el('span','j-sub');
+      sub.textContent = state.rewards.indexOf(w.id) !== -1 ? 'کامل شده' : (ex.length + ' از ' + w.exhibits.length + ' بخش بررسی شده');
+      li.appendChild(sub);
+      ul.appendChild(li);
+    });
+    body.appendChild(ul);
+  }
+
+  body.appendChild(el('h4', null, 'انتخاب‌های تو'));
+  if (state.choices.length === 0){
+    body.appendChild(el('div','j-intro','هنوز انتخابی ثبت نشده.'));
+  } else {
+    var ul2 = el('ul','j-list');
+    state.choices.forEach(function(c){
+      var li = el('li', null, '«' + c.value + '»');
+      li.appendChild(el('span','j-sub', c.world + ' — ' + c.exhibit));
+      ul2.appendChild(li);
+    });
+    body.appendChild(ul2);
+  }
+
+  body.appendChild(el('h4', null, 'نوشته‌ی ناقص'));
+  var fbox = el('div','fragment-box');
+  fbox.appendChild(el('div','fcount','قطعه‌های پیدا شده: ' + toFa(uniqueFragmentCount()) + ' از ' + toFa(13)));
+  if (uniqueFragmentCount() < 13){
+    var remaining = 13 - uniqueFragmentCount();
+    fbox.appendChild(el('div','fhint','هنوز ' + toFa(remaining) + ' قطعه پیدا نشده. با گشتن در جهان‌ها و بررسی کامل هر بخش، قطعه‌ها پیدا می‌شن.'));
+  } else {
+    fbox.appendChild(el('div','fhint','یک نوشته‌ی ناقص، حالا قابل خواندن شده.'));
+  }
+  body.appendChild(fbox);
+
+  if (uniqueFragmentCount() === 13){
+    var assembled = el('div','assembled');
+    body.appendChild(assembled);
+    var full = FRAGMENTS.join(' ');
+    if (reduceMotion){
+      assembled.textContent = full;
+    } else {
+      var i = 0;
+      var caret = el('span','caret');
+      assembled.appendChild(caret);
+      (function typeNext(){
+        if (i >= full.length){
+          if (caret.parentNode) caret.parentNode.removeChild(caret);
+          return;
+        }
+        assembled.insertBefore(document.createTextNode(full.charAt(i)), caret);
+        i++;
+        typedSentenceTimer = setTimeout(typeNext, 45);
+      })();
+    }
+    var hint = el('div','fhint','در نقشه‌ی موزه، دری تازه باز شده است.');
+    hint.style.marginTop = '12px';
+    body.appendChild(hint);
+  }
+
+  if (isFinalDoorUnlocked()){
+    var fhint = el('div','fhint','آخرین در باز است. روی نقشه پیدایش کن.');
+    fhint.style.marginTop = '14px';
+    fhint.style.color = '#d9c69a';
+    body.appendChild(fhint);
+  }
+}
+
+function openHelp(){ renderHelp(); $('#help-panel').classList.add('open'); }
+function closeHelp(){ $('#help-panel').classList.remove('open'); }
+
+function renderHelp(){
+  var body = $('#help-body');
+  body.textContent = '';
+
+  if (currentScreen === 'world-screen' && currentWorldId){
+    var w = getWorld(currentWorldId);
+    body.appendChild(el('h4', null, w.title));
+    body.appendChild(paras(w.hint, 'j-intro'));
+    if (w.puzzle && !state.solved[w.id]){
+      body.appendChild(el('h4', null, 'درباره‌ی پازل'));
+      body.appendChild(paras('برای حل این پازل، به جمله‌های خودِ بخش‌ها برگرد. پاسخ درست، معمولاً همان چیزی است که با دقت و درنگ سازگارتر است، نه سریع‌ترین واکنش.', 'j-intro'));
+    }
+    body.appendChild(el('h4', null, 'یادآوری'));
+    body.appendChild(paras('برای کامل شدن هر جهان، همه‌ی بخش‌های آن را بررسی کن. پازل‌ها اختیاری نیستند، اما می‌توانی هر چند بار که خواستی تلاش کنی.', 'j-intro'));
+  } else if (currentScreen === 'secret-screen'){
+    body.appendChild(el('h4', null, 'اتاق آخر'));
+    body.appendChild(paras('روی پاکت کلیک کن تا نامه باز شود. اگر خواستی، می‌توانی نامه را به‌صورت یک فایل متنی ذخیره کنی.', 'j-intro'));
+  } else if (currentScreen === 'final-room-screen'){
+    body.appendChild(el('h4', null, 'آخرین اتاق'));
+    body.appendChild(paras('روی پاکت کلیک کن تا آخرین نامه باز شود. موسیقی آرام این اتاق را می‌توانی از گوشه‌ی پایین صفحه کم یا خاموش کنی.', 'j-intro'));
+  } else {
+    body.appendChild(el('h4', null, 'چطور موزه را بگردم؟'));
+    body.appendChild(paras(
+      'موزه سه بال دارد: ادبیات فارسی، جهان رمان‌ها و فلسفه. روی نقشه، هر جهان یک درِ جداگانه است و می‌توانی هر ترتیبی را انتخاب کنی.\n\n' +
+      'در هر جهان، چند شیء یا ایستگاه وجود دارد. با کلیک روی هرکدام، بخشی از محتوای آن باز می‌شود. وقتی همه‌ی بخش‌های یک جهان را بررسی کردی، نشان آن جهان در دفترچه ثبت می‌شود.',
+      'j-intro'
+    ));
+    body.appendChild(el('h4', null, 'علائم روی نقشه'));
+    body.appendChild(paras(
+      '○ یعنی هنوز وارد نشده‌ای.\n' +
+      '◐ یعنی وارد شده‌ای اما همه‌ی بخش‌ها را ندیده‌ای.\n' +
+      '★ یعنی آن جهان کامل شده است.\n' +
+      '✦ یعنی قطعه‌ای از یک نوشته‌ی ناقص را در آن جهان پیدا کرده‌ای.',
+      'j-intro'
+    ));
+    body.appendChild(el('h4', null, 'نوشته‌ی ناقص'));
+    body.appendChild(paras('در جهان‌ها و ورودی موزه، قطعه‌هایی از یک نوشته پراکنده‌اند. یک قطعه هم در ورودی موزه پنهان شده؛ بعد از بازدید چند جهان، دوباره به ورودی سر بزن. وقتی همه‌شان جمع شوند، چیزی در دفترچه خوانده می‌شود و دری تازه روی نقشه باز می‌شود.', 'j-intro'));
+    body.appendChild(el('h4', null, 'آخرین در'));
+    body.appendChild(paras('در پایین نقشه، دری هست که تا وقتی همه‌ی درهای قبلی باز نشده‌اند، باز نمی‌شود. وقتی همه‌چیز کامل شد، خودش باز می‌شود و آخرین اتاق را نشان می‌دهد.', 'j-intro'));
+    body.appendChild(el('h4', null, 'ذخیره‌ی پیشرفت'));
+    body.appendChild(paras(
+      storageOK
+        ? 'پیشرفت تو در همین مرورگر ذخیره می‌شود. اگر صفحه را ببندی و بعد برگردی، همان‌جایی هستی که رها کردی. با دکمه‌ی «شروع دوباره» می‌توانی از اول شروع کنی.'
+        : 'در این مرورگر امکان ذخیره‌ی پیشرفت وجود ندارد. می‌توانی همین حالا موزه را بگردی، اما با بستن صفحه، پیشرفت پاک می‌شود.',
+      'j-intro'
+    ));
+  }
+}
+
+function openSecretRoom(){
+  if (!state.secretUnlocked){
+    toast('این در هنوز باز نمی‌شود.');
+    return;
+  }
+  state.secretVisited = true;
+  save();
+  renderSecretRoom();
+  setScreen('secret-screen');
+}
+
+function renderSecretRoom(){
+  var ent = $('#secret-entrance');
+  ent.textContent = '';
+  ent.appendChild(paras(SECRET_ROOM_TEXT));
+  var desk = $('#secret-desk');
+  desk.textContent = '';
+  var letterArea = $('#letter-area');
+  letterArea.textContent = '';
+  var env = el('button','envelope');
+  env.type = 'button';
+  env.setAttribute('aria-label','باز کردن نامه برای روما');
+  env.appendChild(el('span','env-label','برای رُما'));
+  env.addEventListener('click', function(){
+    env.classList.add('opened');
+    state.letterRead = true;
+    save();
+    setTimeout(function(){ renderLetter(letterArea); }, reduceMotion ? 60 : 620);
+  });
+  desk.appendChild(env);
+  desk.appendChild(el('div','letter-note','روی پاکت کلیک کن تا نامه باز شود.'));
+}
+
+function renderLetter(host){
+  host.textContent = '';
+  var paper = el('div','letter-paper');
+  var lines = LETTER_TEXT.split('\n\n');
+  lines.forEach(function(line, i){
+    var t = line.trim();
+    if (!t) return;
+    var p = el('p');
+    if (i === 0){ p.className = 'salut'; }
+    if (t === 'علیرضا'){ p.className = 'sign'; }
+    p.textContent = t;
+    paper.appendChild(p);
+  });
+  host.appendChild(paper);
+  host.appendChild(el('div','letter-note','این موزه برای تو ساخته شده؛ هر وقت خواستی، درش دوباره بازه.'));
+  var actions = el('div','letter-actions');
+  var b1 = el('button','btn btn-primary','برگشتن به موزه');
+  b1.type = 'button';
+  b1.addEventListener('click', function(){ showMap(); });
+  var b2 = el('button','btn btn-ghost','خواندن دوباره‌ی نامه');
+  b2.type = 'button';
+  b2.addEventListener('click', function(){
+    host.textContent = '';
+    renderSecretRoom();
+    var env = $('#secret-desk .envelope');
+    if (env) env.classList.add('opened');
+    setTimeout(function(){ renderLetter(host); }, reduceMotion ? 30 : 320);
+  });
+  var b3 = el('button','btn btn-ghost','ذخیره‌ی نامه');
+  b3.type = 'button';
+  b3.addEventListener('click', function(){
+    try {
+      var blob = new Blob(['\ufeff' + LETTER_TEXT], {type:'text/plain;charset=utf-8'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'نامه-برای-روما.txt';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 400);
+      toast('نامه به‌صورت یک فایل متنی ذخیره شد.');
+    } catch(e){
+      toast('ذخیره‌ی فایل در این مرورگر ممکن نشد.');
+    }
+  });
+  actions.appendChild(b1);
+  actions.appendChild(b2);
+  actions.appendChild(b3);
+  host.appendChild(actions);
+}
+
+var music = {ctx:null,fade:null,out:null,started:false,paused:false,muted:false,volume:0.55,timer:null,nextBarTime:0,bar:0,fadeDur:5.0};
+var BAR_LEN = 8;
+var CHORD_PROG = [[174.61,220.00,261.63,329.63],[146.83,174.61,220.00,261.63],[233.08,293.66,349.23,440.00],[130.81,196.00,261.63,293.66]];
+var BASS_NOTES = [174.61,146.83,233.08,130.81];
+var MELODIES = [
+  [[0.6,440.00,2.6],[3.4,523.25,2.8],[6.2,392.00,1.8]],
+  [[0.8,349.23,2.4],[3.6,440.00,2.6],[6.4,523.25,1.5]],
+  [[0.7,440.00,2.2],[3.2,349.23,2.6],[6.0,587.33,1.8]],
+  [[0.6,523.25,2.8],[3.9,392.00,2.2],[6.5,329.63,1.6]]
+];
+
+function musicBaseGain(){ return music.muted ? 0 : (music.volume * 0.5); }
+
+function startMusic(){
+  if (music.started){
+    if (music.ctx && music.ctx.state === 'suspended' && !music.paused){
+      try { music.ctx.resume(); } catch(e){}
+    }
+    return;
+  }
+  try {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    var ctx = new AC();
+    music.ctx = ctx;
+    var fade = ctx.createGain();
+    fade.gain.value = 0.0001;
+    var out = ctx.createGain();
+    out.gain.value = musicBaseGain();
+    fade.connect(out);
+    out.connect(ctx.destination);
+    music.fade = fade;
+    music.out = out;
+    if (ctx.state === 'suspended'){ try { ctx.resume(); } catch(e){} }
+    var now = ctx.currentTime;
+    fade.gain.setValueAtTime(0.0001, now);
+    fade.gain.linearRampToValueAtTime(1, now + music.fadeDur);
+    music.started = true;
+    music.paused = false;
+    music.bar = 0;
+    music.nextBarTime = now + 0.15;
+    music.timer = setInterval(musicTick, 1500);
+    musicTick();
+    showMusicControls();
+  } catch(e){
+    music.started = false;
+  }
+}
+
+function musicTick(){
+  if (!music.ctx || !music.started || music.paused || !music.fade) return;
+  try {
+    var ctx = music.ctx;
+    if (music.nextBarTime < ctx.currentTime) music.nextBarTime = ctx.currentTime + 0.1;
+    var horizon = ctx.currentTime + 10;
+    var guard = 0;
+    while (music.nextBarTime < horizon && guard < 4){
+      scheduleBar(music.nextBarTime, music.bar);
+      music.nextBarTime += BAR_LEN;
+      music.bar++;
+      guard++;
+    }
+  } catch(e){}
+}
+
+function scheduleBar(when, index){
+  var i = index % 4;
+  padChord(CHORD_PROG[i], when, BAR_LEN + 1);
+  pianoNote(BASS_NOTES[i], when + 0.05, 5.5, 0.7);
+  var mel = MELODIES[i];
+  for (var k = 0; k < mel.length; k++){
+    pianoNote(mel[k][0], when + mel[k][1], mel[k][2], 1);
+  }
+}
+
+function pianoNote(freq, when, dur, gainScale){
+  var ctx = music.ctx;
+  if (!ctx || !music.fade) return;
+  var g = ctx.createGain();
+  var peak = 0.07 * (gainScale || 1);
+  g.gain.setValueAtTime(0.0001, when);
+  g.gain.linearRampToValueAtTime(peak, when + 0.025);
+  g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+  var o1 = ctx.createOscillator();
+  o1.type = 'sine';
+  o1.frequency.value = freq;
+  o1.connect(g);
+  var o2 = ctx.createOscillator();
+  o2.type = 'triangle';
+  o2.frequency.value = freq * 2;
+  var g2 = ctx.createGain();
+  g2.gain.value = 0.14;
+  o2.connect(g2);
+  g2.connect(g);
+  var o3 = ctx.createOscillator();
+  o3.type = 'sine';
+  o3.frequency.value = freq;
+  o3.detune.value = 4;
+  var g3 = ctx.createGain();
+  g3.gain.value = 0.45;
+  o3.connect(g3);
+  g3.connect(g);
+  g.connect(music.fade);
+  o1.start(when); o2.start(when); o3.start(when);
+  o1.stop(when + dur + 0.1);
+  o2.stop(when + dur + 0.1);
+  o3.stop(when + dur + 0.1);
+}
+
+function padChord(freqs, when, dur){
+  var ctx = music.ctx;
+  if (!ctx || !music.fade) return;
+  var g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, when);
+  g.gain.linearRampToValueAtTime(0.030, when + 2.4);
+  var sustainEnd = Math.max(when + 2.5, when + dur - 2.4);
+  g.gain.setValueAtTime(0.030, sustainEnd);
+  g.gain.linearRampToValueAtTime(0.0001, when + dur);
+  freqs.forEach(function(f, i){
+    var o = ctx.createOscillator();
+    o.type = 'sine';
+    o.frequency.value = f;
+    o.detune.value = (i % 2 ? 5 : -5);
+    o.connect(g);
+    o.start(when);
+    o.stop(when + dur + 0.2);
+  });
+  g.connect(music.fade);
+}
+
+function showMusicControls(){
+  var mc = $('#music-controls');
+  if (mc) mc.classList.add('visible');
+  updateMusicButtons();
+}
+function updateMusicButtons(){
+  var muteBtn = $('#mc-mute');
+  var playBtn = $('#mc-play');
+  var range = $('#mc-volume');
+  if (muteBtn) muteBtn.textContent = music.muted ? 'صدا: خاموش' : 'صدا: روشن';
+  if (playBtn) playBtn.textContent = music.paused ? 'پخش' : 'توقف';
+  if (range) range.value = String(Math.round(music.volume * 100));
+}
+function setMuted(m){
+  music.muted = m;
+  if (music.out && music.ctx){
+    try { music.out.gain.setTargetAtTime(m ? 0 : (music.volume * 0.5), music.ctx.currentTime, 0.25); }
+    catch(e){ music.out.gain.value = m ? 0 : (music.volume * 0.5); }
+  }
+  updateMusicButtons();
+}
+function setVolume(v){
+  music.volume = Math.max(0, Math.min(1, v));
+  if (music.out && music.ctx && !music.muted){
+    try { music.out.gain.setTargetAtTime(music.volume * 0.5, music.ctx.currentTime, 0.2); }
+    catch(e){ music.out.gain.value = music.volume * 0.5; }
+  }
+}
+function toggleMusicPause(){
+  if (!music.ctx || !music.started) return;
+  if (music.paused){
+    music.paused = false;
+    try {
+      music.ctx.resume();
+      if (music.nextBarTime < music.ctx.currentTime) music.nextBarTime = music.ctx.currentTime + 0.2;
+    } catch(e){}
+  } else {
+    music.paused = true;
+    try { music.ctx.suspend(); } catch(e){}
+  }
+  updateMusicButtons();
+}
+
+function openFinalRoom(){
+  if (!isFinalDoorUnlocked()){
+    toast('هنوز یه در باقی مونده. برای باز کردنش، باید تمام درهای قبلی رو کشف کرده باشی.');
+    return;
+  }
+  startMusic();
+  var trans = $('#final-transition');
+  if (trans) trans.classList.add('on');
+  setTimeout(function(){
+    try {
+      renderFinalRoom();
+      setScreen('final-room-screen');
+    } catch(e){
+      try { setScreen('final-room-screen'); } catch(err){}
+    }
+    setTimeout(function(){ if (trans) trans.classList.remove('on'); }, 140);
+  }, reduceMotion ? 120 : 950);
+}
+
+function renderFinalRoom(){
+  var host = $('#final-room-container');
+  if (!host) return;
+  host.textContent = '';
+
+  var scene = el('div','final-scene');
+  scene.appendChild(el('div','night-window'));
+  scene.appendChild(el('div','window-moon'));
+  scene.appendChild(el('div','desk-lamp'));
+  scene.appendChild(el('div','final-desk'));
+
+  var dust = el('div','room-dust');
+  for (var i = 0; i < 14; i++){
+    var s = document.createElement('span');
+    var sz = (Math.random() * 2 + 1.3).toFixed(1);
+    s.style.width = sz + 'px';
+    s.style.height = sz + 'px';
+    s.style.left = (Math.random() * 100).toFixed(1) + '%';
+    s.style.bottom = (Math.random() * 42).toFixed(1) + '%';
+    s.style.animationDuration = (Math.random() * 10 + 9).toFixed(1) + 's';
+    s.style.animationDelay = (-Math.random() * 12).toFixed(1) + 's';
+    dust.appendChild(s);
+  }
+  scene.appendChild(dust);
+
+  var env = el('button','final-envelope');
+  env.type = 'button';
+  env.setAttribute('aria-label','باز کردن آخرین نامه');
+  env.appendChild(el('span','wax'));
+  env.appendChild(el('span','fenv-label','برای رُما'));
+  env.appendChild(el('span','fenv-invite','این آخرین نوشته‌ی این موزه‌ست.'));
+  env.addEventListener('click', openFinalLetter);
+  scene.appendChild(env);
+  host.appendChild(scene);
+
+  var la = el('div');
+  la.id = 'final-letter-area';
+  host.appendChild(la);
+
+  if (state.finalLetterRead){
+    env.classList.add('opened');
+    renderFinalLetter();
+  }
+}
+
+function openFinalLetter(){
+  var env = $('#final-room-container .final-envelope');
+  if (env && !env.classList.contains('opened')) env.classList.add('opened');
+  if (!state.finalLetterRead){
+    state.finalLetterRead = true;
+    save();
+  }
+  startMusic();
+  renderFinalLetter();
+}
+
+function renderFinalLetter(){
+  var area = $('#final-letter-area');
+  if (!area) return;
+  if (area.dataset.rendered === '1') return;
+  area.dataset.rendered = '1';
+  area.textContent = '';
+  var paper = el('div','letter-paper');
+  paper.appendChild(el('div','final-letter-title', FINAL_LETTER_TITLE));
+  FINAL_LETTER.forEach(function(p){
+    var node = el('p', p.cls || null);
+    if (p.bold) node.classList.add('strong');
+    node.textContent = p.t;
+    paper.appendChild(node);
+  });
+  area.appendChild(paper);
+  var actions = el('div','letter-actions');
+  var back = el('button','btn btn-ghost','بازگشت به موزه');
+  back.type = 'button';
+  back.addEventListener('click', function(){ showMap(); });
+  actions.appendChild(back);
+  area.appendChild(actions);
+}
+
+function resetProgress(){
+  showModal(
+    'شروع دوباره',
+    'با این کار همه‌ی کشفیات، نشان‌ها و قطعه‌های پیدا شده پاک می‌شود. مطمئنی؟',
+    [
+      {label:'نه، برگرد', fn:function(){}},
+      {label:'بله، از اول شروع کن', primary:true, fn:function(){
+        state = {visited:{}, explored:{}, solved:{}, fragments:[], choices:[], rewards:[],
+          secretUnlocked:false, letterRead:false, secretVisited:false,
+          finalLetterRead:false, finalDoorNoticed:false};
+        save();
+        currentWorldId = null;
+        closeJournal();
+        closeHelp();
+        showMap();
+        toast('موزه دوباره از ابتدا آماده است.');
+      }}
+    ]
+  );
+}
+
+function wire(){
+  $('#btn-enter-museum').addEventListener('click', function(){ showMap(); });
+  $('#btn-entrance-help').addEventListener('click', function(){
+    currentScreen = 'entrance-screen';
+    openHelp();
+  });
+  $('#btn-back').addEventListener('click', function(){
+    if (currentScreen === 'world-screen' || currentScreen === 'secret-screen' || currentScreen === 'final-room-screen'){
+      showMap();
+    } else if (currentScreen === 'map-screen'){
+      showEntrance();
+    }
+  });
+  $('#btn-journal').addEventListener('click', openJournal);
+  $('#btn-help').addEventListener('click', openHelp);
+  $('#btn-reset').addEventListener('click', resetProgress);
+  $('#journal-close').addEventListener('click', closeJournal);
+  $('#help-close').addEventListener('click', closeHelp);
+  $('#btn-to-entrance').addEventListener('click', function(){ showEntrance(); });
+
+  var muteBtn = $('#mc-mute');
+  var playBtn = $('#mc-play');
+  var volRange = $('#mc-volume');
+  if (muteBtn) muteBtn.addEventListener('click', function(){ setMuted(!music.muted); });
+  if (playBtn) playBtn.addEventListener('click', toggleMusicPause);
+  if (volRange) volRange.addEventListener('input', function(){ setVolume(parseFloat(volRange.value) / 100); });
+
+  $('#modal-wrap').addEventListener('click', function(e){
+    if (e.target === $('#modal-wrap')) $('#modal-wrap').classList.remove('open');
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      closeJournal();
+      closeHelp();
+      $('#modal-wrap').classList.remove('open');
+    }
+  });
+
+  if (!reduceMotion){
+    document.addEventListener('mousemove', function(e){
+      var x = (e.clientX / window.innerWidth - 0.5) * -1;
+      var y = (e.clientY / window.innerHeight - 0.5) * -1;
+      document.documentElement.style.setProperty('--px', x.toFixed(3));
+      document.documentElement.style.setProperty('--py', y.toFixed(3));
+    });
+  }
+  createDust();
+}
+
+function createDust(){
+  if (reduceMotion) return;
+  var layer = $('#dust-layer');
+  if (!layer) return;
+  var count = window.innerWidth < 700 ? 16 : 34;
+  for (var i = 0; i < count; i++){
+    var d = document.createElement('div');
+    d.className = 'dust';
+    var size = (Math.random() * 2.4 + 1).toFixed(1);
+    d.style.width = size + 'px';
+    d.style.height = size + 'px';
+    d.style.left = (Math.random() * 100).toFixed(2) + '%';
+    d.style.top = (Math.random() * 100).toFixed(2) + '%';
+    d.style.animationDuration = (Math.random() * 24 + 18).toFixed(1) + 's';
+    d.style.animationDelay = (-Math.random() * 30).toFixed(1) + 's';
+    d.style.opacity = (Math.random() * 0.4 + 0.2).toFixed(2);
+    layer.appendChild(d);
+  }
+}
+
+function init(){
+  try { load(); } catch(e){}
+  try { wire(); } catch(e){}
+  setScreen('login-screen');
+}
+
+if (document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>
